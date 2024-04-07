@@ -22,21 +22,7 @@ class DatabaseOperator:
             config = configparser.ConfigParser()
             config.read("./cfg/config.ini")
 
-            required_keys = ["host", "user", "password", "database"]
-            for key in required_keys:
-                if key not in config["connection"] or not config["connection"][key].strip():
-                    raise ValueError(f"Invalid or missing '{key}' in the configuration.")
-
             host = config["connection"]["host"].strip()
-            ipv4_pattern = re.compile(
-                r"^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\."
-                r"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\."
-                r"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\."
-                r"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
-            )
-            if not ipv4_pattern.match(host):
-                raise ValueError("Invalid IPv4 address in the 'host' parameter.")
-
             user = config['connection']['user'].strip()
             password = config['connection']['password'].strip()
             database = config['connection']['database'].strip()
