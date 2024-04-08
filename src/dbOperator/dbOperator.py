@@ -2,6 +2,8 @@ import mysql.connector
 import configparser
 import re
 
+from src.log_editor.log_editor import Log_editor
+
 
 class DatabaseOperator:
     """
@@ -11,6 +13,7 @@ class DatabaseOperator:
         """
             Initialize the DatabaseOperator class with default values for connection attributes.
         """
+        self.log_editor = Log_editor()
         self.connection = None
         self.cursor = None
 
@@ -39,12 +42,16 @@ class DatabaseOperator:
 
             self.cursor = self.connection.cursor()
 
+            self.log_editor.log_debug("Úspěšné připojení do databáze.")
+
     def disconnect(self):
         """
             Close the database connection if it is open.
         """
         if self.connection is not None:
             self.connection.close()
+
+        self.log_editor.log_debug("Úspěšné odpojení do databáze.")
 
     def get_connection(self):
         return self.connection

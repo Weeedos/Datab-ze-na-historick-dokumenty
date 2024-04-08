@@ -1,5 +1,8 @@
 import tkinter
+
+from src.book.bookCommandsUI import BookCommandsUI
 from src.charter.charterCommandsUI import CharterCommandsUI
+from src.chronicle.chronicleCommandsUI import ChronicleCommandsUI
 
 
 class UserInterface:
@@ -14,7 +17,7 @@ class UserInterface:
         self.table_var = tkinter.StringVar(root)
         self.table_var.set("listiny")
 
-        self.table_options = ["listiny"]
+        self.table_options = ["listiny", "knihy", "kroniky"]
         self.table_dropdown = tkinter.OptionMenu(root, self.table_var, *self.table_options)
         self.table_dropdown.grid(row=0, column=1, padx=10, pady=5)
 
@@ -30,6 +33,14 @@ class UserInterface:
             charter_root = tkinter.Tk()
             CharterCommandsUI(charter_root, self.db_operator)
             charter_root.mainloop()
+        if selected_table == "knihy":
+            book_root = tkinter.Tk()
+            BookCommandsUI(book_root, self.db_operator)
+            book_root.mainloop()
+        if selected_table == "kroniky":
+            chronicle_root = tkinter.Tk()
+            ChronicleCommandsUI(chronicle_root, self.db_operator)
+            chronicle_root.mainloop()
 
     def quit(self):
         self.root.quit()

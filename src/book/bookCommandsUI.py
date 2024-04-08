@@ -1,6 +1,10 @@
 import tkinter
 from tkinter import filedialog, messagebox
 
+from src.book.book import Book
+from src.book.bookDeleteUI import BookDeleteUI
+from src.book.bookInsertUI import BookInsertUI
+from src.book.bookSelectUI import BookSelectUI
 from src.charter.charterSelectUI import CharterSelectUI
 from src.charter.charter import Charter
 from src.charter.charterDeleteUI import CharterDeleteUI
@@ -8,13 +12,13 @@ from src.charter.charterInsertUI import CharterInsertUI
 from src.log_editor.log_editor import Log_editor
 
 
-class CharterCommandsUI:
+class BookCommandsUI:
     def __init__(self, root, db_operator):
         self.log_editor = Log_editor()
         self.root = root
         self.db_operator = db_operator
-        self.charter = Charter(self.db_operator)
-        self.root.title("Listiny")
+        self.book = Book(self.db_operator)
+        self.root.title("Knihy")
 
         self.button_insert = tkinter.Button(self.root, text="Vložit", command=self.insert)
         self.button_insert.grid(row=0, column=0, padx=10, pady=10)
@@ -35,24 +39,24 @@ class CharterCommandsUI:
         self.button_back.grid(row=1, column=2, padx=10, pady=10)
 
     def insert(self):
-        charter_root_insert = tkinter.Tk()
-        CharterInsertUI(charter_root_insert, Charter(self.db_operator))
-        charter_root_insert.mainloop()
+        book_root_insert = tkinter.Tk()
+        BookInsertUI(book_root_insert, self.book)
+        book_root_insert.mainloop()
 
     def delete(self):
-        charter_root_delete = tkinter.Tk()
-        CharterDeleteUI(charter_root_delete, Charter(self.db_operator))
-        charter_root_delete.mainloop()
+        book_root_delete = tkinter.Tk()
+        BookDeleteUI(book_root_delete, self.book)
+        book_root_delete.mainloop()
 
     def select(self):
-        charter_root_select = tkinter.Tk()
-        CharterSelectUI(charter_root_select, Charter(self.db_operator))
-        charter_root_select.mainloop()
+        book_root_select = tkinter.Tk()
+        BookSelectUI(book_root_select, self.book)
+        book_root_select.mainloop()
 
     def import_csv(self):
         try:
             path_to_csv = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
-            self.charter.import_from_csv(path_to_csv)
+            self.book.import_from_csv(path_to_csv)
         except Exception as err:
             messagebox.showerror("Chyba", f"Nastala chyba: {str(err)}")
             self.log_editor.log_error(f"Chyba: {str(err)}")
@@ -61,7 +65,7 @@ class CharterCommandsUI:
         try:
             path_to_directory = tkinter.filedialog.askdirectory()
             if path_to_directory:
-                self.charter.export_to_csv(path_to_directory)
+                self.book.export_to_csv(path_to_directory)
         except Exception as err:
             messagebox.showerror("Chyba", f"Nastala chyba: {str(err)}")
             self.log_editor.log_error(f"Chyba: {str(err)}")
