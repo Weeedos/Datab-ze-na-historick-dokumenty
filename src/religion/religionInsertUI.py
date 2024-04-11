@@ -2,11 +2,11 @@ import tkinter
 from tkinter import messagebox
 
 
-class ChronicleInsertUI:
-    def __init__(self, root, chronicle):
-        self.chronicle = chronicle
+class ReligionInsertUI:
+    def __init__(self, root, religion):
+        self.religion = religion
         self.root = root
-        self.root.title("Přidat kroniku")
+        self.root.title("Přidat náboženský text")
 
         self.label_title = tkinter.Label(root, text="Název:")
         self.label_title.grid(row=0, column=0, padx=10, pady=5)
@@ -23,10 +23,10 @@ class ChronicleInsertUI:
         self.entry_publication_date = tkinter.Entry(root)
         self.entry_publication_date.grid(row=1, column=1, padx=10, pady=5)
 
-        self.label_genre = tkinter.Label(root, text="Žánr:")
-        self.label_genre.grid(row=2, column=0, padx=10, pady=5)
-        self.entry_genre = tkinter.Entry(root)
-        self.entry_genre.grid(row=2, column=1, padx=10, pady=5)
+        self.label_description = tkinter.Label(root, text="Popis:")
+        self.label_description.grid(row=2, column=0, padx=10, pady=5)
+        self.entry_description = tkinter.Entry(root)
+        self.entry_description.grid(row=2, column=1, padx=10, pady=5)
 
         self.label_language = tkinter.Label(root, text="Jazyk:")
         self.label_language.grid(row=4, column=0, padx=10, pady=5)
@@ -42,11 +42,11 @@ class ChronicleInsertUI:
     def insert(self):
         title = self.entry_title.get()
         publication_date = self.entry_publication_date.get()
-        genre = self.entry_genre.get()
+        genre = self.entry_description.get()
         author = self.entry_author.get()
         language = self.entry_language.get()
 
-        self.chronicle.insert_into_chronicle(title, author, publication_date, genre, language)
+        self.religion.insert_into_religion(title, author, publication_date, genre, language)
 
         messagebox.showinfo("Úspěch", "Úspěšně přidáno.")
 

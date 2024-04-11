@@ -1,20 +1,21 @@
 import tkinter
 from tkinter import filedialog, messagebox
-from src.chronicle.chronicle import Chronicle
-from src.chronicle.chronicleDeleteUI import ChronicleDeleteUI
-from src.chronicle.chronicleInsertUI import ChronicleInsertUI
-from src.chronicle.chronicleSelectUI import ChronicleSelectUI
-from src.chronicle.chronicleUpdateUI import ChronicleUpdateUI
+
 from src.log_editor.log_editor import Log_editor
+from src.religion.religion import Religion
+from src.religion.religionDeleteUI import ReligionDeleteUI
+from src.religion.religionInsertUI import ReligionInsertUI
+from src.religion.religionSelectUI import ReligionSelectUI
+from src.religion.religionUpdateUI import ReligionUpdateUI
 
 
-class ChronicleCommandsUI:
+class ReligionCommandsUI:
     def __init__(self, root, db_operator):
         self.log_editor = Log_editor()
         self.root = root
         self.db_operator = db_operator
-        self.chronicle = Chronicle(self.db_operator)
-        self.root.title("Kroniky")
+        self.religion = Religion(self.db_operator)
+        self.root.title("Náboženské texty")
 
         self.button_insert = tkinter.Button(self.root, text="Vložit", command=self.insert)
         self.button_insert.grid(row=0, column=0, padx=10, pady=10)
@@ -38,29 +39,29 @@ class ChronicleCommandsUI:
         self.button_back.grid(row=1, column=3, padx=10, pady=10)
 
     def insert(self):
-        book_root_insert = tkinter.Tk()
-        ChronicleInsertUI(book_root_insert, self.chronicle)
-        book_root_insert.mainloop()
+        root_insert = tkinter.Tk()
+        ReligionInsertUI(root_insert, self.religion)
+        root_insert.mainloop()
 
     def delete(self):
-        book_root_delete = tkinter.Tk()
-        ChronicleDeleteUI(book_root_delete, self.chronicle)
-        book_root_delete.mainloop()
+        root_delete = tkinter.Tk()
+        ReligionDeleteUI(root_delete, self.religion)
+        root_delete.mainloop()
 
     def select(self):
-        book_root_select = tkinter.Tk()
-        ChronicleSelectUI(book_root_select, self.chronicle)
-        book_root_select.mainloop()
+        root_select = tkinter.Tk()
+        ReligionSelectUI(root_select, self.religion)
+        root_select.mainloop()
 
     def update(self):
-        chronicle_root_select = tkinter.Tk()
-        ChronicleUpdateUI(chronicle_root_select, self.chronicle)
-        chronicle_root_select.mainloop()
+        root_update = tkinter.Tk()
+        ReligionUpdateUI(root_update, self.religion)
+        root_update.mainloop()
 
     def import_csv(self):
         try:
             path_to_csv = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
-            self.chronicle.import_from_csv(path_to_csv)
+            self.religion.import_from_csv(path_to_csv)
         except Exception as err:
             messagebox.showerror("Chyba", f"Nastala chyba: {str(err)}")
             self.log_editor.log_error(f"Chyba: {str(err)}")
@@ -69,7 +70,7 @@ class ChronicleCommandsUI:
         try:
             path_to_directory = tkinter.filedialog.askdirectory()
             if path_to_directory:
-                self.chronicle.export_to_csv(path_to_directory)
+                self.religion.export_to_csv(path_to_directory)
         except Exception as err:
             messagebox.showerror("Chyba", f"Nastala chyba: {str(err)}")
             self.log_editor.log_error(f"Chyba: {str(err)}")

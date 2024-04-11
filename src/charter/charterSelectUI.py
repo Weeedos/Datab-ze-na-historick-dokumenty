@@ -52,7 +52,7 @@ class CharterSelectUI:
             results = self.charter.select_from_charter_by_issuance_date(search_term)
 
         for result in results:
-            self.result_tree.insert("", "end", values=result)
+            self.result_tree.insert("", "end", values=result[1:])
 
     def back(self):
         self.root.destroy()

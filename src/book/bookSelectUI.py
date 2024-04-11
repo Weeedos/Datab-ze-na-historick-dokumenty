@@ -45,7 +45,7 @@ class BookSelectUI:
             results = self.book.select_from_book_by_title(search_term)
         elif search_by == "Autor":
             results = self.book.select_from_book_by_author(search_term)
-        elif search_by == "Období":
+        elif search_by == "Žánr":
             results = self.book.select_from_book_by_genre(search_term)
         elif search_by == "Země":
             results = self.book.select_from_book_by_language(search_term)

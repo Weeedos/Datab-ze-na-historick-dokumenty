@@ -1,20 +1,20 @@
 import tkinter
 from tkinter import filedialog, messagebox
-from src.chronicle.chronicle import Chronicle
-from src.chronicle.chronicleDeleteUI import ChronicleDeleteUI
-from src.chronicle.chronicleInsertUI import ChronicleInsertUI
-from src.chronicle.chronicleSelectUI import ChronicleSelectUI
-from src.chronicle.chronicleUpdateUI import ChronicleUpdateUI
 from src.log_editor.log_editor import Log_editor
+from src.travel_diaries.diary import Diary
+from src.travel_diaries.diaryDeleteUI import DiaryDeleteUI
+from src.travel_diaries.diaryInsertUI import DiaryInsertUI
+from src.travel_diaries.diarySelectUI import DiarySelectUI
+from src.travel_diaries.diaryUpdateUI import DiaryUpdateUI
 
 
-class ChronicleCommandsUI:
+class DiaryCommandsUI:
     def __init__(self, root, db_operator):
         self.log_editor = Log_editor()
         self.root = root
         self.db_operator = db_operator
-        self.chronicle = Chronicle(self.db_operator)
-        self.root.title("Kroniky")
+        self.diary = Diary(self.db_operator)
+        self.root.title("Cestovní deníky")
 
         self.button_insert = tkinter.Button(self.root, text="Vložit", command=self.insert)
         self.button_insert.grid(row=0, column=0, padx=10, pady=10)
@@ -38,29 +38,29 @@ class ChronicleCommandsUI:
         self.button_back.grid(row=1, column=3, padx=10, pady=10)
 
     def insert(self):
-        book_root_insert = tkinter.Tk()
-        ChronicleInsertUI(book_root_insert, self.chronicle)
-        book_root_insert.mainloop()
+        root_insert = tkinter.Tk()
+        DiaryInsertUI(root_insert, self.diary)
+        root_insert.mainloop()
 
     def delete(self):
-        book_root_delete = tkinter.Tk()
-        ChronicleDeleteUI(book_root_delete, self.chronicle)
-        book_root_delete.mainloop()
+        root_delete = tkinter.Tk()
+        DiaryDeleteUI(root_delete, self.diary)
+        root_delete.mainloop()
 
     def select(self):
-        book_root_select = tkinter.Tk()
-        ChronicleSelectUI(book_root_select, self.chronicle)
-        book_root_select.mainloop()
+        root_select = tkinter.Tk()
+        DiarySelectUI(root_select, self.diary)
+        root_select.mainloop()
 
     def update(self):
-        chronicle_root_select = tkinter.Tk()
-        ChronicleUpdateUI(chronicle_root_select, self.chronicle)
-        chronicle_root_select.mainloop()
+        root_select = tkinter.Tk()
+        DiaryUpdateUI(root_select, self.diary)
+        root_select.mainloop()
 
     def import_csv(self):
         try:
             path_to_csv = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
-            self.chronicle.import_from_csv(path_to_csv)
+            self.diary.import_from_csv(path_to_csv)
         except Exception as err:
             messagebox.showerror("Chyba", f"Nastala chyba: {str(err)}")
             self.log_editor.log_error(f"Chyba: {str(err)}")
@@ -69,7 +69,7 @@ class ChronicleCommandsUI:
         try:
             path_to_directory = tkinter.filedialog.askdirectory()
             if path_to_directory:
-                self.chronicle.export_to_csv(path_to_directory)
+                self.diary.export_to_csv(path_to_directory)
         except Exception as err:
             messagebox.showerror("Chyba", f"Nastala chyba: {str(err)}")
             self.log_editor.log_error(f"Chyba: {str(err)}")
