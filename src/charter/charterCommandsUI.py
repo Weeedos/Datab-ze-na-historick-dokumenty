@@ -1,6 +1,5 @@
 import tkinter
 from tkinter import filedialog, messagebox
-
 from src.charter.charterSelectUI import CharterSelectUI
 from src.charter.charter import Charter
 from src.charter.charterDeleteUI import CharterDeleteUI
@@ -10,30 +9,38 @@ from src.log_editor.log_editor import Log_editor
 
 
 class CharterCommandsUI:
-    def __init__(self, root, db_operator):
+    def __init__(self, root, db_operator, admin):
+        self.admin = admin
         self.log_editor = Log_editor()
         self.root = root
         self.db_operator = db_operator
         self.charter = Charter(self.db_operator)
         self.root.title("Listiny")
 
-        self.button_insert = tkinter.Button(self.root, text="Vložit", command=self.insert)
-        self.button_insert.grid(row=0, column=0, padx=10, pady=10)
+        if self.admin == (0,):
+            self.button_select = tkinter.Button(self.root, text="Vyhledat", command=self.select)
+            self.button_select.grid(row=0, column=0, padx=10, pady=10)
 
-        self.button_delete = tkinter.Button(self.root, text="Smazat", command=self.delete)
-        self.button_delete.grid(row=0, column=1, padx=10, pady=10)
+            self.button_export_csv = tkinter.Button(self.root, text="Exportovat do CSV", command=self.export_csv)
+            self.button_export_csv.grid(row=0, column=1, padx=10, pady=10)
+        else:
+            self.button_insert = tkinter.Button(self.root, text="Vložit", command=self.insert)
+            self.button_insert.grid(row=0, column=0, padx=10, pady=10)
 
-        self.button_update = tkinter.Button(self.root, text="Upravit", command=self.update)
-        self.button_update.grid(row=0, column=2, padx=10, pady=10)
+            self.button_delete = tkinter.Button(self.root, text="Smazat", command=self.delete)
+            self.button_delete.grid(row=0, column=1, padx=10, pady=10)
 
-        self.button_select = tkinter.Button(self.root, text="Vyhledat", command=self.select)
-        self.button_select.grid(row=0, column=3, padx=10, pady=10)
+            self.button_update = tkinter.Button(self.root, text="Upravit", command=self.update)
+            self.button_update.grid(row=0, column=2, padx=10, pady=10)
 
-        self.button_import_csv = tkinter.Button(self.root, text="Importovat z CSV", command=self.import_csv)
-        self.button_import_csv.grid(row=0, column=4, padx=10, pady=10)
+            self.button_select = tkinter.Button(self.root, text="Vyhledat", command=self.select)
+            self.button_select.grid(row=0, column=3, padx=10, pady=10)
 
-        self.button_export_csv = tkinter.Button(self.root, text="Exportovat do CSV", command=self.export_csv)
-        self.button_export_csv.grid(row=0, column=5, padx=10, pady=10)
+            self.button_import_csv = tkinter.Button(self.root, text="Importovat z CSV", command=self.import_csv)
+            self.button_import_csv.grid(row=0, column=4, padx=10, pady=10)
+
+            self.button_export_csv = tkinter.Button(self.root, text="Exportovat do CSV", command=self.export_csv)
+            self.button_export_csv.grid(row=0, column=5, padx=10, pady=10)
 
         self.button_back = tkinter.Button(self.root, text="Zpátky", command=self.back)
         self.button_back.grid(row=1, column=3, padx=10, pady=10)

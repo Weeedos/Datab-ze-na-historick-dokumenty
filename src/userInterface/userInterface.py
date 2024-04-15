@@ -9,9 +9,11 @@ from src.travel_diaries.diaryCommandsUI import DiaryCommandsUI
 
 
 class UserInterface:
-    def __init__(self, root, db_operator):
+    def __init__(self, root, db_operator, admin, user):
         self.db_operator = db_operator
         self.root = root
+        self.admin = admin
+        self.user = user
         self.root.title("Archiv")
 
         self.label_choose_table = tkinter.Label(root, text="Vyberte typ záznamu:")
@@ -34,31 +36,31 @@ class UserInterface:
         selected_table = self.table_var.get()
         if selected_table == "Listiny":
             charter_root = tkinter.Tk()
-            CharterCommandsUI(charter_root, self.db_operator)
+            CharterCommandsUI(charter_root, self.db_operator, self.admin)
             charter_root.mainloop()
         if selected_table == "Knihy":
             book_root = tkinter.Tk()
-            BookCommandsUI(book_root, self.db_operator)
+            BookCommandsUI(book_root, self.db_operator, self.admin)
             book_root.mainloop()
         if selected_table == "Kroniky":
             chronicle_root = tkinter.Tk()
-            ChronicleCommandsUI(chronicle_root, self.db_operator)
+            ChronicleCommandsUI(chronicle_root, self.db_operator, self.admin)
             chronicle_root.mainloop()
         if selected_table == "Náboženské texty":
             religion_root = tkinter.Tk()
-            ReligionCommandsUI(religion_root, self.db_operator)
+            ReligionCommandsUI(religion_root, self.db_operator, self.admin)
             religion_root.mainloop()
         if selected_table == "Dopisy":
             letter_root = tkinter.Tk()
-            LetterCommandsUI(letter_root, self.db_operator)
+            LetterCommandsUI(letter_root, self.db_operator, self.admin)
             letter_root.mainloop()
         if selected_table == "Projevy a manifesty":
             speech_root = tkinter.Tk()
-            SpeechCommandsUI(speech_root, self.db_operator)
+            SpeechCommandsUI(speech_root, self.db_operator, self.admin)
             speech_root.mainloop()
         if selected_table == "Cestovní deníky":
             diary_root = tkinter.Tk()
-            DiaryCommandsUI(diary_root, self.db_operator)
+            DiaryCommandsUI(diary_root, self.db_operator, self.admin)
             diary_root.mainloop()
 
     def quit(self):

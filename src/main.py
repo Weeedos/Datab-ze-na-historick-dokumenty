@@ -1,8 +1,9 @@
 import tkinter
 from tkinter import messagebox
 from src.log_editor.log_editor import Log_editor
-from src.userInterface.userInterface import UserInterface
+from src.login.loginMenuUI import LoginMenuUI
 from src.dbOperator.dbOperator import DatabaseOperator
+from src.user.user import User
 
 
 def main():
@@ -10,8 +11,9 @@ def main():
         log_editor = Log_editor()
         db_operator = DatabaseOperator()
         db_operator.connect()
+        user = User(db_operator)
         root = tkinter.Tk()
-        UserInterface(root, db_operator)
+        LoginMenuUI(root, db_operator, user)
         root.mainloop()
     except Exception as err:
         messagebox.showerror("Chyba", f"Nastala chyba: {str(err)}")

@@ -45,7 +45,7 @@ class Speech:
         int_id = int(id)
         str_title = str(title)
         str_author = str(author)
-        str_publication_date = publication_date
+        str_publication_date = str(publication_date)
         str_content = str(content)
 
         date_regex = re.compile(r'\d{4}-\d{2}-\d{2}')
