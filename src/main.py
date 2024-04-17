@@ -13,7 +13,7 @@ def main():
         db_operator.connect()
         user = User(db_operator)
         root = tkinter.Tk()
-        LoginMenuUI(root, db_operator, user)
+        LoginMenuUI(root, db_operator, user, log_editor)
         root.mainloop()
     except Exception as err:
         messagebox.showerror("Chyba", f"Nastala chyba: {str(err)}")

@@ -6,29 +6,34 @@ from src.userInterface.userInterface import UserInterface
 
 
 class LoginMenuUI:
-    def __init__(self, root, db_operator, user):
+    def __init__(self, root, db_operator, user, log_editor):
         self.root = root
         self.db_operator = db_operator
         self.user = user
+        self.log_editor = log_editor
 
         self.label_username = tkinter.Label(root, text="Uživatelské jméno:")
-        self.label_username.grid(row=0, column=0, padx=10, pady=5)
+        self.label_username.grid(row=0, column=0, padx=10, pady=5, sticky='e')
         self.entry_username = tkinter.Entry(root)
-        self.entry_username.grid(row=0, column=1, padx=10, pady=5)
+        self.entry_username.grid(row=0, column=1, padx=10, pady=5, sticky='we')
 
         self.label_password = tkinter.Label(root, text="Heslo:")
-        self.label_password.grid(row=1, column=0, padx=10, pady=5)
+        self.label_password.grid(row=1, column=0, padx=10, pady=5, sticky='e')
         self.entry_password = tkinter.Entry(root, show="*")
-        self.entry_password.grid(row=1, column=1, padx=10, pady=5)
+        self.entry_password.grid(row=1, column=1, padx=10, pady=5, sticky='we')
 
         self.register_button = tkinter.Button(self.root, text="Register", command=self.register)
-        self.register_button.grid(row=2, column=1, padx=10, pady=5)
+        self.register_button.grid(row=2, column=1, padx=10, pady=5, sticky='we')
 
         self.login_button = tkinter.Button(self.root, text="Login", command=self.login)
-        self.login_button.grid(row=3, column=1, padx=10, pady=5)
+        self.login_button.grid(row=3, column=1, padx=10, pady=5, sticky='we')
 
         self.button_quit = tkinter.Button(root, text="Ukončit", command=self.quit)
-        self.button_quit.grid(row=4, column=1, columnspan=2, padx=10, pady=10)
+        self.button_quit.grid(row=4, column=1, columnspan=2, padx=10, pady=10, sticky='we')
+
+        root.columnconfigure(1, weight=1)
+        for i in range(5):
+            root.rowconfigure(i, weight=1)
 
     def login(self):
         username = self.entry_username.get()
@@ -39,8 +44,8 @@ class LoginMenuUI:
 
         if admin is None:
             messagebox.showerror("Chyba", "Nesprávné uživatelské jméno nebo heslo.")
-            raise Exception("Nesprávné uživatelské jméno nebo heslo.")
 
+        self.log_editor.log_info(f"Uživatel {username} se připojil.")
         self.root.destroy()
         root = tkinter.Tk()
         UserInterface(root, self.db_operator, admin, self.user)

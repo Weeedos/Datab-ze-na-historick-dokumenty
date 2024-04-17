@@ -26,9 +26,9 @@ class DatabaseOperator:
             config.read("./cfg/config.ini")
 
             host = config["connection"]["host"].strip()
-            user = config['connection']['user'].strip()
-            password = config['connection']['password'].strip()
-            database = config['connection']['database'].strip()
+            user = config["connection"]["user"].strip()
+            password = config["connection"]["password"].strip()
+            database = config["connection"]["database"].strip()
 
             if not isinstance(user, str) or not isinstance(password, str) or not isinstance(database, str):
                 raise ValueError("User, password, and database must be strings.")

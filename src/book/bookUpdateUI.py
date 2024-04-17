@@ -10,15 +10,15 @@ class BookUpdateUI:
         self.root.title("Úprava")
 
         self.button_refresh = tkinter.Button(self.root, text="Obnovit", command=self.refresh)
-        self.button_refresh.grid(row=0, column=0, padx=10, pady=5)
+        self.button_refresh.grid(row=0, column=0, padx=10, pady=5, sticky='we')
 
         self.label_id = tkinter.Label(self.root)
-        self.label_id.grid(row=0, column=1, padx=10, pady=5)
+        self.label_id.grid(row=0, column=1, padx=10, pady=5, sticky='we')
         self.entry_id = tkinter.Entry(self.root)
-        self.entry_id.grid(row=0, column=2, padx=10, pady=5)
+        self.entry_id.grid(row=0, column=2, padx=10, pady=5, sticky='we')
 
         self.button_update = tkinter.Button(self.root, text="Upravit", command=self.update)
-        self.button_update.grid(row=0, column=3, padx=10, pady=5)
+        self.button_update.grid(row=0, column=3, padx=10, pady=5, sticky='we')
 
         self.result_tree = ttk.Treeview(self.root, columns=("ID", "Název", "Autor", "Datum vydání", "Žánr", "Jazyk", "ISBN"),
                                         show="headings")
@@ -29,12 +29,16 @@ class BookUpdateUI:
         self.result_tree.heading("Žánr", text="Žánr")
         self.result_tree.heading("Jazyk", text="Jazyk")
         self.result_tree.heading("ISBN", text="ISBN")
-        self.result_tree.grid(row=1, column=0, columnspan=4, padx=10, pady=5)
+        self.result_tree.grid(row=1, column=0, columnspan=4, padx=10, pady=5, sticky='we')
 
         self.button_back = tkinter.Button(self.root, text="Zpět", command=self.back)
-        self.button_back.grid(row=2, column=0, columnspan=4, padx=10, pady=10)
+        self.button_back.grid(row=2, column=0, columnspan=4, padx=10, pady=10, sticky='we')
 
         self.refresh()
+
+        root.columnconfigure(1, weight=1)
+        for i in range(5):
+            root.rowconfigure(i, weight=1)
 
     def update(self):
         id = self.entry_id.get()

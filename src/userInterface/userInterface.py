@@ -17,20 +17,24 @@ class UserInterface:
         self.root.title("Archiv")
 
         self.label_choose_table = tkinter.Label(root, text="Vyberte typ záznamu:")
-        self.label_choose_table.grid(row=0, column=0, padx=10, pady=5)
+        self.label_choose_table.grid(row=0, column=0, padx=10, pady=5, sticky='we')
 
         self.table_var = tkinter.StringVar(root)
         self.table_var.set("Listiny")
 
         self.table_options = ["Listiny", "Knihy", "Kroniky", "Dopisy", "Náboženské texty", "Projevy a manifesty", "Cestovní deníky"]
         self.table_dropdown = tkinter.OptionMenu(root, self.table_var, *self.table_options)
-        self.table_dropdown.grid(row=0, column=1, padx=10, pady=5)
+        self.table_dropdown.grid(row=0, column=1, padx=10, pady=5, sticky='we')
 
         self.button_select = tkinter.Button(root, text="Vybrat", command=self.select_table)
-        self.button_select.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+        self.button_select.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky='we')
 
         self.button_quit = tkinter.Button(root, text="Ukončit", command=self.quit)
-        self.button_quit.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
+        self.button_quit.grid(row=2, column=0, columnspan=2, padx=10, pady=10, sticky='we')
+
+        root.columnconfigure(1, weight=1)
+        for i in range(5):
+            root.rowconfigure(i, weight=1)
 
     def select_table(self):
         selected_table = self.table_var.get()

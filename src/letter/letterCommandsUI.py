@@ -20,31 +20,35 @@ class LetterCommandsUI:
 
         if self.admin == (0,):
             self.button_select = tkinter.Button(self.root, text="Vyhledat", command=self.select)
-            self.button_select.grid(row=0, column=0, padx=10, pady=10)
+            self.button_select.grid(row=0, column=0, padx=10, pady=10, sticky='we')
 
             self.button_export_csv = tkinter.Button(self.root, text="Exportovat do CSV", command=self.export_csv)
-            self.button_export_csv.grid(row=0, column=1, padx=10, pady=10)
+            self.button_export_csv.grid(row=0, column=1, padx=10, pady=10, sticky='we')
         else:
             self.button_insert = tkinter.Button(self.root, text="Vložit", command=self.insert)
-            self.button_insert.grid(row=0, column=0, padx=10, pady=10)
+            self.button_insert.grid(row=0, column=0, padx=10, pady=10, sticky='we')
 
             self.button_delete = tkinter.Button(self.root, text="Smazat", command=self.delete)
-            self.button_delete.grid(row=0, column=1, padx=10, pady=10)
+            self.button_delete.grid(row=0, column=1, padx=10, pady=10, sticky='we')
 
             self.button_update = tkinter.Button(self.root, text="Upravit", command=self.update)
-            self.button_update.grid(row=0, column=2, padx=10, pady=10)
+            self.button_update.grid(row=0, column=2, padx=10, pady=10, sticky='we')
 
             self.button_select = tkinter.Button(self.root, text="Vyhledat", command=self.select)
-            self.button_select.grid(row=0, column=3, padx=10, pady=10)
+            self.button_select.grid(row=0, column=3, padx=10, pady=10, sticky='we')
 
             self.button_import_csv = tkinter.Button(self.root, text="Importovat z CSV", command=self.import_csv)
-            self.button_import_csv.grid(row=0, column=4, padx=10, pady=10)
+            self.button_import_csv.grid(row=0, column=4, padx=10, pady=10, sticky='we')
 
             self.button_export_csv = tkinter.Button(self.root, text="Exportovat do CSV", command=self.export_csv)
-            self.button_export_csv.grid(row=0, column=5, padx=10, pady=10)
+            self.button_export_csv.grid(row=0, column=5, padx=10, pady=10, sticky='we')
 
         self.button_back = tkinter.Button(self.root, text="Zpátky", command=self.back)
-        self.button_back.grid(row=1, column=3, padx=10, pady=10)
+        self.button_back.grid(row=1, column=3, padx=10, pady=10, sticky='we')
+
+        root.columnconfigure(1, weight=1)
+        for i in range(5):
+            root.rowconfigure(i, weight=1)
 
     def insert(self):
         root_insert = tkinter.Tk()
