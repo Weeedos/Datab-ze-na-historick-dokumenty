@@ -3,7 +3,14 @@ from tkinter import ttk
 
 
 class SpeechSelectUI:
+    """
+    Třída SpeechSelectUI poskytuje uživatelské rozhraní pro vyhledávání záznamů řečí.
+    """
+
     def __init__(self, root, speech):
+        """
+        Inicializuje novou instanci třídy SpeechSelectUI.
+        """
         self.root = root
         self.speech = speech
         self.root.title("Vyhledávání")
@@ -39,6 +46,9 @@ class SpeechSelectUI:
             root.rowconfigure(i, weight=1)
 
     def search(self):
+        """
+        Provede vyhledávání záznamů podle zadaných kritérií.
+        """
         search_by = self.search_var.get()
         search_term = self.entry_search.get()
         self.result_tree.delete(*self.result_tree.get_children())
@@ -56,4 +66,7 @@ class SpeechSelectUI:
             self.result_tree.insert("", "end", values=result[1:])
 
     def back(self):
+        """
+        Ukončí práci s rozhraním a zavře okno.
+        """
         self.root.destroy()

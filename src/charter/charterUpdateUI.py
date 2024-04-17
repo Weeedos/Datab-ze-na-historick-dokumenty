@@ -4,7 +4,13 @@ from src.charter.charterUpdateMenuUI import CharterUpdateMenuUI
 
 
 class CharterUpdateUI:
+    """
+    Uživatelské rozhraní pro výběr listiny k úpravě.
+    """
     def __init__(self, root, charter):
+        """
+        Inicializuje uživatelské rozhraní pro výběr listiny k úpravě.
+        """
         self.root = root
         self.charter = charter
         self.root.title("Úprava")
@@ -40,22 +46,30 @@ class CharterUpdateUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Získá vybrané ID listiny a spustí rozhraní pro úpravu listiny.
+        """
         id = self.entry_id.get()
         select_id = self.charter.select_from_charter_by_id(id)
 
         if not select_id:
-            messagebox.showerror("Chyba", "Záznam se zadaným ID neexitsuje.")
-            raise Exception("Záznam se zadaným ID neexitsuje.")
+            messagebox.showerror("Chyba", "Záznam se zadaným ID neexistuje.")
+            return
 
         charter_update_id_root = tkinter.Tk()
         CharterUpdateMenuUI(charter_update_id_root, self.charter, id)
         charter_update_id_root.mainloop()
 
     def refresh(self):
+        """
+        Obnoví seznam všech listin v Treeview.
+        """
         self.result_tree.delete(*self.result_tree.get_children())
-
         for result in self.charter.select_all():
             self.result_tree.insert("", "end", values=result)
 
     def back(self):
+        """
+        Zavře aktuální okno.
+        """
         self.root.destroy()

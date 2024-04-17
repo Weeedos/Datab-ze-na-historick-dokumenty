@@ -3,7 +3,13 @@ from tkinter import messagebox
 
 
 class BookDeleteUI:
+    """
+    Reprezentuje uživatelské rozhraní pro odstranění knihy z databáze.
+    """
     def __init__(self, root, book):
+        """
+        Inicializuje objekt rozhraní BookDeleteUI.
+        """
         self.book = book
         self.root = root
         self.root.title("Odebrat knihu")
@@ -24,6 +30,9 @@ class BookDeleteUI:
             root.rowconfigure(i, weight=1)
 
     def delete(self):
+        """
+        Spustí proces odstranění knihy z databáze na základě zadaného názvu knihy.
+        """
         title = self.entry_title.get()
 
         self.book.delete_from_book(title)
@@ -31,4 +40,7 @@ class BookDeleteUI:
         messagebox.showinfo("Úspěch", "Úspěšně odebráno.")
 
     def back(self):
+        """
+        Ukončí práci s rozhraním a zavře ho.
+        """
         self.root.destroy()

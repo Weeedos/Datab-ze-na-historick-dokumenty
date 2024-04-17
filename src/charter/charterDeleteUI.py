@@ -3,7 +3,13 @@ from tkinter import messagebox
 
 
 class CharterDeleteUI:
+    """
+    Uživatelské rozhraní pro odebrání listiny.
+    """
     def __init__(self, root, charter):
+        """
+        Inicializuje uživatelské rozhraní pro odebrání listiny.
+        """
         self.charter = charter
         self.root = root
         self.root.title("Odebrat listinu")
@@ -24,6 +30,9 @@ class CharterDeleteUI:
             root.rowconfigure(i, weight=1)
 
     def delete(self):
+        """
+        Odebere listinu z databáze na základě zadaného názvu.
+        """
         title = self.entry_title.get()
 
         self.charter.delete_from_charter(title)
@@ -31,4 +40,7 @@ class CharterDeleteUI:
         messagebox.showinfo("Úspěch", "Úspěšně odebráno.")
 
     def back(self):
+        """
+        Uzavírá aktuální okno.
+        """
         self.root.destroy()

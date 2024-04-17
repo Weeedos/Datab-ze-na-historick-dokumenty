@@ -3,7 +3,14 @@ from tkinter import messagebox
 
 
 class ReligionUpdateMenuUI:
+    """
+    Třída ReligionUpdateMenuUI poskytuje uživatelské rozhraní pro aktualizaci informací o náboženském textu v databázi.
+    """
+
     def __init__(self, root, religion, id):
+        """
+        Inicializuje novou instanci třídy ReligionUpdateMenuUI.
+        """
         self.religion = religion
         self.root = root
         self.id = id
@@ -45,6 +52,9 @@ class ReligionUpdateMenuUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Aktualizuje informace o náboženském textu na základě zadaných údajů.
+        """
         title = self.entry_title.get()
         publication_date = self.entry_publication_date.get()
         description = self.entry_description.get()
@@ -73,4 +83,7 @@ class ReligionUpdateMenuUI:
         self.back()
 
     def back(self):
+        """
+        Zavře aktuální okno.
+        """
         self.root.destroy()

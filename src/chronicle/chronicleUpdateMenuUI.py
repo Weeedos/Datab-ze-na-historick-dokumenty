@@ -3,7 +3,13 @@ from tkinter import messagebox
 
 
 class ChronicleUpdateMenuUI:
+    """
+    Třída pro vytvoření uživatelského rozhraní pro aktualizaci informací o kronice.
+    """
     def __init__(self, root, chronicle, id):
+        """
+        Inicializuje uživatelské rozhraní pro aktualizaci informací o kronice.
+        """
         self.chronicle = chronicle
         self.root = root
         self.id = id
@@ -45,6 +51,9 @@ class ChronicleUpdateMenuUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Aktualizuje informace o kronice na základě zadaných údajů v uživatelském rozhraní.
+        """
         title = self.entry_title.get()
         publication_date = self.entry_publication_date.get()
         genre = self.entry_genre.get()
@@ -73,4 +82,7 @@ class ChronicleUpdateMenuUI:
         self.back()
 
     def back(self):
+        """
+        Ukončí aktuální okno.
+        """
         self.root.destroy()

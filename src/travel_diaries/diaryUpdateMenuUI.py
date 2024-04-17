@@ -3,7 +3,14 @@ from tkinter import messagebox
 
 
 class DiaryUpdateMenuUI:
+    """
+    Třída DiaryUpdateMenuUI reprezentuje uživatelské rozhraní pro úpravu existujícího deníkového záznamu.
+    """
+
     def __init__(self, root, diary, id):
+        """
+        Inicializuje novou instanci třídy DiaryUpdateMenuUI.
+        """
         self.diary = diary
         self.root = root
         self.id = id
@@ -40,6 +47,9 @@ class DiaryUpdateMenuUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Aktualizuje existující deníkový záznam s novými hodnotami.
+        """
         title = self.entry_title.get()
         date = self.entry_date.get()
         content = self.entry_content.get()
@@ -64,4 +74,7 @@ class DiaryUpdateMenuUI:
         self.back()
 
     def back(self):
+        """
+        Zavře okno pro úpravu deníkového záznamu.
+        """
         self.root.destroy()

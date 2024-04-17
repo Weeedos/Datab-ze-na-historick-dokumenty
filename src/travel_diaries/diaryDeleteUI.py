@@ -3,7 +3,27 @@ from tkinter import messagebox
 
 
 class DiaryDeleteUI:
+    """
+    Třída DiaryDeleteUI reprezentuje uživatelské rozhraní pro odstranění deníkového záznamu.
+
+    Attributes:
+        diary: Instance třídy Diary pro manipulaci s deníkovými záznamy.
+        root: Hlavní okno aplikace.
+
+    Methods:
+        __init__(root, diary): Inicializuje novou instanci třídy DiaryDeleteUI.
+        delete(): Odstraní deníkový záznam podle zadaného názvu.
+        back(): Zavře okno pro odstranění deníkového záznamu.
+    """
+
     def __init__(self, root, diary):
+        """
+        Inicializuje novou instanci třídy DiaryDeleteUI.
+
+        Args:
+            root: Hlavní okno aplikace.
+            diary: Instance třídy Diary pro manipulaci s deníkovými záznamy.
+        """
         self.diary = diary
         self.root = root
         self.root.title("Odebrat deník")
@@ -24,6 +44,9 @@ class DiaryDeleteUI:
             root.rowconfigure(i, weight=1)
 
     def delete(self):
+        """
+        Odstraní deníkový záznam podle zadaného názvu.
+        """
         title = self.entry_title.get()
 
         self.diary.delete_from_diary(title)
@@ -31,4 +54,7 @@ class DiaryDeleteUI:
         messagebox.showinfo("Úspěch", "Úspěšně odebráno.")
 
     def back(self):
+        """
+        Zavře okno pro odstranění deníkového záznamu.
+        """
         self.root.destroy()

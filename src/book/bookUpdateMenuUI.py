@@ -3,7 +3,13 @@ from tkinter import messagebox
 
 
 class BookUpdateMenuUI:
+    """
+    Reprezentuje uživatelské rozhraní pro úpravu informací o knize v databázi.
+    """
     def __init__(self, root, book, id):
+        """
+        Inicializuje objekt rozhraní BookUpdateMenuUI.
+        """
         self.book = book
         self.root = root
         self.id = id
@@ -50,6 +56,9 @@ class BookUpdateMenuUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Aktualizuje informace o knize na základě zadaných hodnot a zobrazí zprávu o úspěchu.
+        """
         title = self.entry_title.get()
         publication_date = self.entry_publication_date.get()
         genre = self.entry_genre.get()
@@ -57,29 +66,19 @@ class BookUpdateMenuUI:
         language = self.entry_language.get()
         isbn = self.entry_isbn.get()
 
-        if title is None or title == " ":
-            messagebox.showerror("Chyba", f"Nezadali jste název.")
-            raise Exception("Nezadali jste název.")
-        if publication_date is None or publication_date == " ":
-            messagebox.showerror("Chyba", f"Nezadali jste datum.")
-            raise Exception("Nezadali jste datum.")
-        if genre is None or genre == " ":
-            messagebox.showerror("Chyba", f"Nezadali jste obsah.")
-            raise Exception("Nezadali jste obsah.")
-        if author is None or author == " ":
-            messagebox.showerror("Chyba", f"Nezadali jste autora.")
-            raise Exception("Nezadali jste autora.")
-        if language is None or language == " ":
-            messagebox.showerror("Chyba", f"Nezadali jste stát.")
-            raise Exception("Nezadali jste stát.")
-        if isbn is None or isbn == " ":
-            messagebox.showerror("Chyba", f"Nezadali jste období.")
-            raise Exception("Nezadali jste období.")
+        if not all([title, publication_date, genre, author, language, isbn]):
+            messagebox.showerror("Chyba", "Všechna pole musí být vyplněna.")
+            return
 
-        self.book.update_book(self.id, title, author, publication_date, genre, language, isbn)
-
-        messagebox.showinfo("Úspěch", "Úspěšně upraveno.")
-        self.back()
+        try:
+            self.book.update_book(self.id, title, author, publication_date, genre, language, isbn)
+            messagebox.showinfo("Úspěch", "Úspěšně upraveno.")
+            self.back()
+        except Exception as e:
+            messagebox.showerror("Chyba", f"Nastala chyba při aktualizaci: {str(e)}")
 
     def back(self):
+        """
+        Zavře okno aktualizace.
+        """
         self.root.destroy()

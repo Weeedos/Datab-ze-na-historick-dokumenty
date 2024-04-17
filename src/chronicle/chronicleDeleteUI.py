@@ -1,9 +1,11 @@
 import tkinter
 from tkinter import messagebox
 
-
 class ChronicleDeleteUI:
     def __init__(self, root, chronicle):
+        """
+        Inicializuje uživatelské rozhraní pro odebrání kroniky.
+        """
         self.chronicle = chronicle
         self.root = root
         self.root.title("Odebrat kroniku")
@@ -24,6 +26,9 @@ class ChronicleDeleteUI:
             root.rowconfigure(i, weight=1)
 
     def delete(self):
+        """
+        Odešle požadavek na odebrání kroniky z databáze.
+        """
         title = self.entry_title.get()
 
         self.chronicle.delete_from_chronicle(title)
@@ -31,4 +36,7 @@ class ChronicleDeleteUI:
         messagebox.showinfo("Úspěch", "Úspěšně odebráno.")
 
     def back(self):
+        """
+        Zavře okno a vrátí se zpět.
+        """
         self.root.destroy()

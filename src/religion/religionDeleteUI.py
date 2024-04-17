@@ -3,7 +3,14 @@ from tkinter import messagebox
 
 
 class ReligionDeleteUI:
+    """
+    Třída ReligionDeleteUI poskytuje uživatelské rozhraní pro odstranění náboženského textu z databáze.
+    """
+
     def __init__(self, root, religion):
+        """
+        Inicializuje novou instanci třídy ReligionDeleteUI.
+        """
         self.religion = religion
         self.root = root
         self.root.title("Odebrat náboženský text")
@@ -24,6 +31,9 @@ class ReligionDeleteUI:
             root.rowconfigure(i, weight=1)
 
     def delete(self):
+        """
+        Odebere náboženský text z databáze na základě zadaného názvu.
+        """
         title = self.entry_title.get()
 
         self.religion.delete_from_religion(title)
@@ -31,4 +41,7 @@ class ReligionDeleteUI:
         messagebox.showinfo("Úspěch", "Úspěšně odebráno.")
 
     def back(self):
+        """
+        Zavře aktuální okno.
+        """
         self.root.destroy()

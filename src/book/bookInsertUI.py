@@ -3,7 +3,13 @@ from tkinter import messagebox
 
 
 class BookInsertUI:
+    """
+    Reprezentuje uživatelské rozhraní pro přidání knihy do databáze.
+    """
     def __init__(self, root, book):
+        """
+        Inicializuje objekt rozhraní BookInsertUI.
+        """
         self.book = book
         self.root = root
         self.root.title("Přidat knihu")
@@ -49,6 +55,9 @@ class BookInsertUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """
+        Spustí proces přidání knihy do databáze na základě zadaných informací uživatelem.
+        """
         title = self.entry_title.get()
         publication_date = self.entry_publication_date.get()
         genre = self.entry_genre.get()
@@ -61,4 +70,7 @@ class BookInsertUI:
         messagebox.showinfo("Úspěch", "Úspěšně přidáno.")
 
     def back(self):
+        """
+        Ukončí práci s rozhraním a zavře ho.
+        """
         self.root.destroy()

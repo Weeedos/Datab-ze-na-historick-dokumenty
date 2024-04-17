@@ -1,6 +1,6 @@
 import tkinter
 from tkinter import filedialog, messagebox
-from src.log_editor.log_editor import Log_editor
+from src.log_editor.logeditor import LogEditor
 from src.speech.speech import Speech
 from src.speech.speechDeleteUI import SpeechDeleteUI
 from src.speech.speechInsertUI import SpeechInsertUI
@@ -9,9 +9,16 @@ from src.speech.speechUpdateUI import SpeechUpdateUI
 
 
 class SpeechCommandsUI:
+    """
+    Třída SpeechCommandsUI poskytuje uživatelské rozhraní pro manipulaci s řečmi a manifesty.
+    """
+
     def __init__(self, root, db_operator, admin):
+        """
+        Inicializuje novou instanci třídy SpeechCommandsUI.
+        """
         self.admin = admin
-        self.log_editor = Log_editor()
+        self.log_editor = LogEditor()
         self.root = root
         self.db_operator = db_operator
         self.speech = Speech(self.db_operator)
@@ -50,26 +57,41 @@ class SpeechCommandsUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """
+        Spustí vložení nového záznamu.
+        """
         root_insert = tkinter.Tk()
         SpeechInsertUI(root_insert, self.speech)
         root_insert.mainloop()
 
     def delete(self):
+        """
+        Spustí smazání existujícího záznamu.
+        """
         root_delete = tkinter.Tk()
         SpeechDeleteUI(root_delete, self.speech)
         root_delete.mainloop()
 
     def select(self):
+        """
+        Spustí vyhledávání záznamů.
+        """
         root_select = tkinter.Tk()
         SpeechSelectUI(root_select, self.speech)
         root_select.mainloop()
 
     def update(self):
+        """
+        Spustí aktualizaci existujícího záznamu.
+        """
         root_select = tkinter.Tk()
         SpeechUpdateUI(root_select, self.speech)
         root_select.mainloop()
 
     def import_csv(self):
+        """
+        Importuje data z CSV souboru do databáze.
+        """
         try:
             path_to_csv = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
             self.speech.import_from_csv(path_to_csv)
@@ -78,6 +100,9 @@ class SpeechCommandsUI:
             self.log_editor.log_error(f"Chyba: {str(err)}")
 
     def export_csv(self):
+        """
+        Exportuje data z databáze do CSV souboru.
+        """
         try:
             path_to_directory = tkinter.filedialog.askdirectory()
             if path_to_directory:
@@ -87,4 +112,7 @@ class SpeechCommandsUI:
             self.log_editor.log_error(f"Chyba: {str(err)}")
 
     def back(self):
+        """
+        Ukončí práci s rozhraním a zavře okno.
+        """
         self.root.destroy()

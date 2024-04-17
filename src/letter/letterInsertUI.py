@@ -3,7 +3,13 @@ from tkinter import messagebox
 
 
 class LetterInsertUI:
+    """
+    Třída LetterInsertUI poskytuje uživatelské rozhraní pro přidání nového dopisu do databáze.
+    """
     def __init__(self, root, letter):
+        """
+        Inicializuje uživatelské rozhraní pro vložení dopisu.
+        """
         self.letter = letter
         self.root = root
         self.root.title("Přidat dopis")
@@ -39,6 +45,9 @@ class LetterInsertUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """
+        Vloží nový dopis do databáze.
+        """
         sender = self.entry_sender.get()
         recipient = self.entry_recipient.get()
         sending_date = self.entry_sending_date.get()
@@ -49,4 +58,7 @@ class LetterInsertUI:
         messagebox.showinfo("Úspěch", "Úspěšně přidáno.")
 
     def back(self):
+        """
+        Zavře okno.
+        """
         self.root.destroy()

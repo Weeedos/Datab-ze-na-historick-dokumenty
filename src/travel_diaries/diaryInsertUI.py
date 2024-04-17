@@ -3,7 +3,14 @@ from tkinter import messagebox
 
 
 class DiaryInsertUI:
+    """
+    Třída DiaryInsertUI reprezentuje uživatelské rozhraní pro přidání nového deníkového záznamu.
+    """
+
     def __init__(self, root, diary):
+        """
+        Inicializuje novou instanci třídy DiaryInsertUI.
+        """
         self.diary = diary
         self.root = root
         self.root.title("Přidat deník")
@@ -39,6 +46,9 @@ class DiaryInsertUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """
+        Přidá nový deníkový záznam s informacemi zadanými uživatelem.
+        """
         title = self.entry_title.get()
         author = self.entry_author.get()
         date = self.entry_date.get()
@@ -49,4 +59,7 @@ class DiaryInsertUI:
         messagebox.showinfo("Úspěch", "Úspěšně přidáno.")
 
     def back(self):
+        """
+        Zavře okno pro přidání nového deníkového záznamu.
+        """
         self.root.destroy()

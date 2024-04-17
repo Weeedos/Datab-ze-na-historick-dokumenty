@@ -6,13 +6,19 @@ from src.letter.letterDeleteUI import LetterDeleteUI
 from src.letter.letterInsertUI import LetterInsertUI
 from src.letter.letterSelectUI import LetterSelectUI
 from src.letter.letterUpdateUI import LetterUpdateUI
-from src.log_editor.log_editor import Log_editor
+from src.log_editor.logeditor import LogEditor
 
 
 class LetterCommandsUI:
+    """
+    Třída LetterCommandsUI poskytuje uživatelské rozhraní pro manipulaci s databází dopisů.
+    """
     def __init__(self, root, db_operator, admin):
+        """
+        Inicializuje uživatelské rozhraní pro správu dopisů.
+        """
         self.admin = admin
-        self.log_editor = Log_editor()
+        self.log_editor = LogEditor()
         self.root = root
         self.db_operator = db_operator
         self.letter = Letter(self.db_operator)
@@ -51,26 +57,41 @@ class LetterCommandsUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """
+        Otevře okno pro vložení nového dopisu.
+        """
         root_insert = tkinter.Tk()
         LetterInsertUI(root_insert, self.letter)
         root_insert.mainloop()
 
     def delete(self):
+        """
+        Otevře okno pro smazání dopisu.
+        """
         root_delete = tkinter.Tk()
         LetterDeleteUI(root_delete, self.letter)
         root_delete.mainloop()
 
     def select(self):
+        """
+        Otevře okno pro vyhledávání dopisů.
+        """
         root_select = tkinter.Tk()
         LetterSelectUI(root_select, self.letter)
         root_select.mainloop()
 
     def update(self):
+        """
+        Otevře okno pro aktualizaci dopisu.
+        """
         root_select = tkinter.Tk()
         LetterUpdateUI(root_select, self.letter)
         root_select.mainloop()
 
     def import_csv(self):
+        """
+        Importuje data z CSV souboru do databáze.
+        """
         try:
             path_to_csv = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
             self.letter.import_from_csv(path_to_csv)
@@ -79,6 +100,9 @@ class LetterCommandsUI:
             self.log_editor.log_error(f"Chyba: {str(err)}")
 
     def export_csv(self):
+        """
+        Exportuje data z databáze do CSV souboru.
+        """
         try:
             path_to_directory = tkinter.filedialog.askdirectory()
             if path_to_directory:
@@ -88,4 +112,7 @@ class LetterCommandsUI:
             self.log_editor.log_error(f"Chyba: {str(err)}")
 
     def back(self):
+        """
+        Zavře okno.
+        """
         self.root.destroy()

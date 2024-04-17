@@ -3,7 +3,14 @@ from tkinter import ttk
 
 
 class ChronicleSelectUI:
+    """
+    Třída pro vytvoření uživatelského rozhraní pro vyhledávání v kronikách.
+    """
+
     def __init__(self, root, chronicle):
+        """
+        Inicializuje uživatelské rozhraní pro vyhledávání v kronikách.
+        """
         self.root = root
         self.chronicle = chronicle
         self.root.title("Vyhledávání")
@@ -40,6 +47,9 @@ class ChronicleSelectUI:
             root.rowconfigure(i, weight=1)
 
     def search(self):
+        """
+        Provede vyhledávání v kronikách podle zvoleného kritéria.
+        """
         search_by = self.search_var.get()
         search_term = self.entry_search.get()
         self.result_tree.delete(*self.result_tree.get_children())
@@ -48,15 +58,18 @@ class ChronicleSelectUI:
             results = self.chronicle.select_from_chronicle_by_title(search_term)
         elif search_by == "Autor":
             results = self.chronicle.select_from_chronicle_by_author(search_term)
-        elif search_by == "Období":
-            results = self.chronicle.select_from_chronicle_by_genre(search_term)
-        elif search_by == "Země":
-            results = self.chronicle.select_from_chronicle_by_language(search_term)
         elif search_by == "Datum vydání":
             results = self.chronicle.select_from_chronicle_by_publication_date(search_term)
+        elif search_by == "Žánr":
+            results = self.chronicle.select_from_chronicle_by_genre(search_term)
+        elif search_by == "Jazyk":
+            results = self.chronicle.select_from_chronicle_by_language(search_term)
 
         for result in results:
             self.result_tree.insert("", "end", values=result[1:])
 
     def back(self):
+        """
+        Ukončí aktuální okno.
+        """
         self.root.destroy()

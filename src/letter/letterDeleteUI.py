@@ -3,7 +3,13 @@ from tkinter import messagebox
 
 
 class LetterDeleteUI:
+    """
+    Třída LetterDeleteUI poskytuje uživatelské rozhraní pro odstranění dopisu z databáze.
+    """
     def __init__(self, root, letter):
+        """
+        Inicializuje uživatelské rozhraní pro odebrání dopisu.
+        """
         self.letter = letter
         self.root = root
         self.root.title("Odebrat dopis")
@@ -29,6 +35,9 @@ class LetterDeleteUI:
             root.rowconfigure(i, weight=1)
 
     def delete(self):
+        """
+        Odebrání dopisu z databáze.
+        """
         sender = self.entry_sender.get()
         recipient = self.entry_recipient.get()
 
@@ -37,4 +46,7 @@ class LetterDeleteUI:
         messagebox.showinfo("Úspěch", "Úspěšně odebráno.")
 
     def back(self):
+        """
+        Zavře okno.
+        """
         self.root.destroy()

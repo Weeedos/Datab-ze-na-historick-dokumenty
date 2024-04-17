@@ -1,7 +1,6 @@
 import tkinter
 from tkinter import filedialog, messagebox
-
-from src.log_editor.log_editor import Log_editor
+from src.log_editor.logeditor import LogEditor
 from src.religion.religion import Religion
 from src.religion.religionDeleteUI import ReligionDeleteUI
 from src.religion.religionInsertUI import ReligionInsertUI
@@ -10,9 +9,15 @@ from src.religion.religionUpdateUI import ReligionUpdateUI
 
 
 class ReligionCommandsUI:
+    """
+    Třída ReligionCommandsUI poskytuje uživatelské rozhraní pro manipulaci s databází náboženských textů.
+    """
     def __init__(self, root, db_operator, admin):
+        """
+        Inicializuje novou instanci třídy ReligionCommandsUI.
+        """
         self.admin = admin
-        self.log_editor = Log_editor()
+        self.log_editor = LogEditor()
         self.root = root
         self.db_operator = db_operator
         self.religion = Religion(self.db_operator)
@@ -51,26 +56,39 @@ class ReligionCommandsUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """
+        Otevře rozhraní pro vkládání nového náboženského textu do databáze.
+        """
         root_insert = tkinter.Tk()
         ReligionInsertUI(root_insert, self.religion)
         root_insert.mainloop()
 
     def delete(self):
+        """
+        Otevře rozhraní pro mazání existujícího náboženského textu z databáze.
+        """
         root_delete = tkinter.Tk()
         ReligionDeleteUI(root_delete, self.religion)
         root_delete.mainloop()
 
     def select(self):
+        """Otevře rozhraní pro vyhledávání náboženských textů v databázi."""
         root_select = tkinter.Tk()
         ReligionSelectUI(root_select, self.religion)
         root_select.mainloop()
 
     def update(self):
+        """
+        Otevře rozhraní pro úpravu existujícího náboženského textu v databáze.
+        """
         root_update = tkinter.Tk()
         ReligionUpdateUI(root_update, self.religion)
         root_update.mainloop()
 
     def import_csv(self):
+        """
+        Importuje data z CSV souboru do databáze.
+        """
         try:
             path_to_csv = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
             self.religion.import_from_csv(path_to_csv)
@@ -79,6 +97,9 @@ class ReligionCommandsUI:
             self.log_editor.log_error(f"Chyba: {str(err)}")
 
     def export_csv(self):
+        """
+        Exportuje data z databáze do CSV souboru.
+        """
         try:
             path_to_directory = tkinter.filedialog.askdirectory()
             if path_to_directory:
@@ -88,4 +109,7 @@ class ReligionCommandsUI:
             self.log_editor.log_error(f"Chyba: {str(err)}")
 
     def back(self):
+        """
+        Zavře aktuální okno.
+        """
         self.root.destroy()

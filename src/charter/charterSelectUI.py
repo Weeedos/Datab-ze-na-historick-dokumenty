@@ -3,7 +3,14 @@ from tkinter import ttk
 
 
 class CharterSelectUI:
+    """
+    Uživatelské rozhraní pro vyhledávání listin podle různých kritérií.
+    """
+
     def __init__(self, root, charter):
+        """
+        Inicializuje uživatelské rozhraní pro vyhledávání listin.
+        """
         self.root = root
         self.charter = charter
         self.root.title("Vyhledávání")
@@ -40,6 +47,9 @@ class CharterSelectUI:
             root.rowconfigure(i, weight=1)
 
     def search(self):
+        """
+        Provede vyhledávání listin podle zvoleného kritéria a zobrazení výsledků v tabulce.
+        """
         search_by = self.search_var.get()
         search_term = self.entry_search.get()
         self.result_tree.delete(*self.result_tree.get_children())
@@ -59,4 +69,7 @@ class CharterSelectUI:
             self.result_tree.insert("", "end", values=result[1:])
 
     def back(self):
+        """
+        Uzavře aktuální okno.
+        """
         self.root.destroy()

@@ -2,16 +2,28 @@ import csv
 import re
 from tkinter import messagebox
 
-from src.log_editor.log_editor import Log_editor
+from src.log_editor.logeditor import LogEditor
 
 
 class Speech:
+    """
+    Třída Speech zajišťuje manipulaci s řečmi a manifesty.
+    """
+
     def __init__(self, db_operator):
-        self.log_editor = Log_editor()
+        """
+        Inicializuje novou instanci třídy Speech.
+        """
+        self.log_editor = LogEditor()
         self.connection = db_operator.get_connection()
         self.cursor = db_operator.get_cursor()
 
+    # Metody pro manipulaci s databází
+
     def insert_into_speech(self, title, author, publication_date, content):
+        """
+        Vloží novou řeč nebo manifest do databáze.
+        """
         str_title = str(title)
         str_author = str(author)
         str_publication_date = publication_date
@@ -29,6 +41,9 @@ class Speech:
         self.log_editor.log_debug("Záznam úspěšně přidán do databáze.")
 
     def delete_from_speech(self, title):
+        """
+        Odebere řeč nebo manifest z databáze podle názvu.
+        """
         str_title = str(title)
         self.cursor.execute(f"SELECT * FROM speeches_and_manifestos WHERE title = '{str_title}'")
         output = self.cursor.fetchone()
@@ -42,6 +57,9 @@ class Speech:
         self.log_editor.log_debug("Záznam úspěšně odebrán z databáze.")
 
     def update_speech(self, id, title, author, publication_date, content):
+        """
+        Aktualizuje řeč nebo manifest v databázi.
+        """
         int_id = int(id)
         str_title = str(title)
         str_author = str(author)
@@ -59,40 +77,20 @@ class Speech:
         self.connection.commit()
 
     def select_from_speech_by_title(self, title):
+        """
+        Vrátí řeč nebo manifest z databáze podle názvu.
+
+        :return:
+            Tuple: Vrací řeč nebo manifest z databáze.
+        """
         str_title = str(title)
         self.cursor.execute(f"SELECT * FROM speeches_and_manifestos WHERE title = '{str_title}'")
         return self.cursor.fetchall()
 
-    def select_from_speech_by_author(self, author):
-        str_author = str(author)
-        self.cursor.execute(f"SELECT * FROM speeches_and_manifestos WHERE author = '{str_author}'")
-        return self.cursor.fetchall()
-
-    def select_from_speech_by_content(self, content):
-        str_content = str(content)
-        self.cursor.execute(f"SELECT * FROM speeches_and_manifestos WHERE content = '{str_content}'")
-        return self.cursor.fetchall()
-
-    def select_from_speech_by_publication_date(self, publication_date):
-        date_regex = re.compile(r'\d{4}-\d{2}-\d{2}')
-
-        if not date_regex.match(publication_date):
-            messagebox.showerror("Chyba", "Špatný formát data. Použijte formát RRRR-MM-DD.")
-        else:
-            str_publication_date = str(publication_date)
-            self.cursor.execute(f"SELECT * FROM speeches_and_manifestos WHERE publication_date = '{str_publication_date}'")
-            return self.cursor.fetchall()
-
-    def select_from_speech_by_id(self, id):
-        int_id = int(id)
-        self.cursor.execute(f"SELECT * FROM speeches_and_manifestos WHERE id = '{int_id}'")
-        return self.cursor.fetchall()
-
-    def select_all(self):
-        self.cursor.execute("SELECT * FROM speeches_and_manifestos")
-        return self.cursor.fetchall()
-
     def import_from_csv(self, path_to_csv):
+        """
+        Importuje data z CSV souboru do databáze.
+        """
         if path_to_csv is None:
             messagebox.showerror("Chyba", "Nevybrali jste soubor.")
 
@@ -109,6 +107,9 @@ class Speech:
         self.log_editor.log_debug("Úspěšný import do databáze.")
 
     def export_to_csv(self, path_to_directory):
+        """
+        Exportuje data z databáze do CSV souboru.
+        """
         data = self.select_all()
 
         if path_to_directory is None:

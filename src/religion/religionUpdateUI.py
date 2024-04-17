@@ -4,7 +4,13 @@ from src.religion.religionUpdateMenuUI import ReligionUpdateMenuUI
 
 
 class ReligionUpdateUI:
+    """
+    Třída ReligionUpdateUI poskytuje uživatelské rozhraní pro aktualizaci náboženských textů v databázi.
+    """
     def __init__(self, root, religion):
+        """
+        Inicializuje novou instanci třídy ReligionUpdateUI.
+        """
         self.root = root
         self.religion = religion
         self.root.title("Úprava")
@@ -40,22 +46,29 @@ class ReligionUpdateUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """Spustí proces aktualizace náboženského textu."""
         id = self.entry_id.get()
         select_id = self.religion.select_from_religion_by_id(id)
 
         if not select_id:
-            messagebox.showerror("Chyba", "Záznam se zadaným ID neexitsuje.")
-            raise Exception("Záznam se zadaným ID neexitsuje.")
+            messagebox.showerror("Chyba", "Záznam se zadaným ID neexistuje.")
+            raise Exception("Záznam se zadaným ID neexistuje.")
 
         update_id_root = tkinter.Tk()
         ReligionUpdateMenuUI(update_id_root, self.religion, id)
         update_id_root.mainloop()
 
     def refresh(self):
+        """
+        Obnoví seznam náboženských textů.
+        """
         self.result_tree.delete(*self.result_tree.get_children())
 
         for result in self.religion.select_all():
             self.result_tree.insert("", "end", values=result)
 
     def back(self):
+        """
+        Zavře aktuální okno.
+        """
         self.root.destroy()

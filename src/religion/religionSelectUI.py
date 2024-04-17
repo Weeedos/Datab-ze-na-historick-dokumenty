@@ -3,7 +3,14 @@ from tkinter import ttk
 
 
 class ReligionSelectUI:
+    """
+    Třída ReligionSelectUI poskytuje uživatelské rozhraní pro vyhledávání náboženských textů v databázi.
+    """
+
     def __init__(self, root, religion):
+        """
+        Inicializuje novou instanci třídy ReligionSelectUI.
+        """
         self.root = root
         self.religion = religion
         self.root.title("Vyhledávání")
@@ -40,6 +47,9 @@ class ReligionSelectUI:
             root.rowconfigure(i, weight=1)
 
     def search(self):
+        """
+        Provede vyhledávání na základě zadaného kritéria a zobrazí výsledky ve stromovém zobrazení.
+        """
         search_by = self.search_var.get()
         search_term = self.entry_search.get()
         self.result_tree.delete(*self.result_tree.get_children())
@@ -50,7 +60,7 @@ class ReligionSelectUI:
             results = self.religion.select_from_religion_by_author(search_term)
         elif search_by == "Popis":
             results = self.religion.select_from_religion_by_description(search_term)
-        elif search_by == "Země":
+        elif search_by == "Jazyk":
             results = self.religion.select_from_religion_by_language(search_term)
         elif search_by == "Datum vydání":
             results = self.religion.select_from_religion_by_publication_date(search_term)
@@ -59,4 +69,7 @@ class ReligionSelectUI:
             self.result_tree.insert("", "end", values=result[1:])
 
     def back(self):
+        """
+        Zavře aktuální okno.
+        """
         self.root.destroy()

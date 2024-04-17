@@ -3,7 +3,13 @@ from tkinter import messagebox
 
 
 class CharterInsertUI:
+    """
+    Uživatelské rozhraní pro přidání nové listiny.
+    """
     def __init__(self, root, charter):
+        """
+        Inicializuje uživatelské rozhraní pro přidání nové listiny.
+        """
         self.charter = charter
         self.root = root
         self.root.title("Přidat listinu")
@@ -49,6 +55,9 @@ class CharterInsertUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """
+        Přidá novou listinu do databáze na základě zadaných údajů.
+        """
         title = self.entry_title.get()
         issuance_date = self.entry_issuance_date.get()
         content = self.entry_content.get()
@@ -61,4 +70,7 @@ class CharterInsertUI:
         messagebox.showinfo("Úspěch", "Úspěšně přidáno.")
 
     def back(self):
+        """
+        Uzavře aktuální okno.
+        """
         self.root.destroy()

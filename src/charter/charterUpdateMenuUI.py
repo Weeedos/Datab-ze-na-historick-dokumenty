@@ -3,7 +3,13 @@ from tkinter import messagebox
 
 
 class CharterUpdateMenuUI:
+    """
+    Uživatelské rozhraní pro úpravu informací o listině.
+    """
     def __init__(self, root, charter, id):
+        """
+        Inicializuje uživatelské rozhraní pro úpravu informací o listině.
+        """
         self.charter = charter
         self.root = root
         self.id = id
@@ -50,6 +56,9 @@ class CharterUpdateMenuUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Aktualizuje informace o listině na základě vstupů z uživatelského rozhraní.
+        """
         title = self.entry_title.get()
         issuance_date = self.entry_issuance_date.get()
         content = self.entry_content.get()
@@ -82,4 +91,7 @@ class CharterUpdateMenuUI:
         self.back()
 
     def back(self):
+        """
+        Uzavře aktuální okno.
+        """
         self.root.destroy()

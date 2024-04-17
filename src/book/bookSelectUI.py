@@ -3,7 +3,13 @@ from tkinter import ttk
 
 
 class BookSelectUI:
+    """
+    Reprezentuje uživatelské rozhraní pro vyhledávání knih v databázi.
+    """
     def __init__(self, root, book):
+        """
+        Inicializuje objekt rozhraní BookSelectUI.
+        """
         self.root = root
         self.book = book
         self.root.title("Vyhledávání")
@@ -41,6 +47,9 @@ class BookSelectUI:
             root.rowconfigure(i, weight=1)
 
     def search(self):
+        """
+        Provede vyhledávání na základě zadaných kritérií a zobrazí výsledky ve stromovém zobrazení.
+        """
         search_by = self.search_var.get()
         search_term = self.entry_search.get()
         self.result_tree.delete(*self.result_tree.get_children())
@@ -51,7 +60,7 @@ class BookSelectUI:
             results = self.book.select_from_book_by_author(search_term)
         elif search_by == "Žánr":
             results = self.book.select_from_book_by_genre(search_term)
-        elif search_by == "Země":
+        elif search_by == "Jazyk":
             results = self.book.select_from_book_by_language(search_term)
         elif search_by == "Datum vydání":
             results = self.book.select_from_book_by_publication_date(search_term)
@@ -62,4 +71,7 @@ class BookSelectUI:
             self.result_tree.insert("", "end", values=result)
 
     def back(self):
+        """
+        Ukončí práci s rozhraním a zavře ho.
+        """
         self.root.destroy()

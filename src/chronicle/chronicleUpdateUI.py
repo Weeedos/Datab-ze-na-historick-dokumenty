@@ -4,7 +4,14 @@ from src.chronicle.chronicleUpdateMenuUI import ChronicleUpdateMenuUI
 
 
 class ChronicleUpdateUI:
+    """
+    Třída pro vytvoření uživatelského rozhraní pro aktualizaci informací o kronice.
+    """
+
     def __init__(self, root, chronicle):
+        """
+        Inicializuje uživatelské rozhraní pro aktualizaci informací o kronice.
+        """
         self.root = root
         self.chronicle = chronicle
         self.root.title("Úprava")
@@ -40,22 +47,31 @@ class ChronicleUpdateUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Otevře okno pro aktualizaci informací o vybrané kronice.
+        """
         id = self.entry_id.get()
         select_id = self.chronicle.select_from_chronicle_by_id(id)
 
         if not select_id:
-            messagebox.showerror("Chyba", "Záznam se zadaným ID neexitsuje.")
-            raise Exception("Záznam se zadaným ID neexitsuje.")
+            messagebox.showerror("Chyba", "Záznam se zadaným ID neexistuje.")
+            raise Exception("Záznam se zadaným ID neexistuje.")
 
         chronicle_update_id_root = tkinter.Tk()
         ChronicleUpdateMenuUI(chronicle_update_id_root, self.chronicle, id)
         chronicle_update_id_root.mainloop()
 
     def refresh(self):
+        """
+        Obnoví seznam všech kronik v uživatelském rozhraní.
+        """
         self.result_tree.delete(*self.result_tree.get_children())
 
         for result in self.chronicle.select_all():
             self.result_tree.insert("", "end", values=result)
 
     def back(self):
+        """
+        Ukončí aktuální okno.
+        """
         self.root.destroy()

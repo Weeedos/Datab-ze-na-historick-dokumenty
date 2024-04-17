@@ -5,13 +5,19 @@ from src.charter.charter import Charter
 from src.charter.charterDeleteUI import CharterDeleteUI
 from src.charter.charterInsertUI import CharterInsertUI
 from src.charter.charterUpdateUI import CharterUpdateUI
-from src.log_editor.log_editor import Log_editor
+from src.log_editor.logeditor import LogEditor
 
 
 class CharterCommandsUI:
+    """
+    Uživatelské rozhraní pro manipulaci s listinami.
+    """
     def __init__(self, root, db_operator, admin):
+        """
+        Inicializuje uživatelské rozhraní pro manipulaci s listinami.
+        """
         self.admin = admin
-        self.log_editor = Log_editor()
+        self.log_editor = LogEditor()
         self.root = root
         self.db_operator = db_operator
         self.charter = Charter(self.db_operator)
@@ -50,26 +56,41 @@ class CharterCommandsUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """
+        Otevře okno pro vložení nové listiny.
+        """
         charter_root_insert = tkinter.Tk()
         CharterInsertUI(charter_root_insert, self.charter)
         charter_root_insert.mainloop()
 
     def delete(self):
+        """
+        Otevře okno pro smazání existující listiny.
+        """
         charter_root_delete = tkinter.Tk()
         CharterDeleteUI(charter_root_delete, self.charter)
         charter_root_delete.mainloop()
 
     def select(self):
+        """
+        Otevře okno pro vyhledání listin.
+        """
         charter_root_select = tkinter.Tk()
         CharterSelectUI(charter_root_select, self.charter)
         charter_root_select.mainloop()
 
     def update(self):
+        """
+        Otevře okno pro aktualizaci existující listiny.
+        """
         charter_root_update = tkinter.Tk()
         CharterUpdateUI(charter_root_update, self.charter)
         charter_root_update.mainloop()
 
     def import_csv(self):
+        """
+        Importuje data listin z CSV souboru do databáze.
+        """
         try:
             path_to_csv = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
             self.charter.import_from_csv(path_to_csv)
@@ -78,6 +99,9 @@ class CharterCommandsUI:
             self.log_editor.log_error(f"Chyba: {str(err)}")
 
     def export_csv(self):
+        """
+        Exportuje data listin z databáze do CSV souboru.
+        """
         try:
             path_to_directory = tkinter.filedialog.askdirectory()
             if path_to_directory:
@@ -87,4 +111,7 @@ class CharterCommandsUI:
             self.log_editor.log_error(f"Chyba: {str(err)}")
 
     def back(self):
+        """
+        Uzavírá aktuální okno.
+        """
         self.root.destroy()

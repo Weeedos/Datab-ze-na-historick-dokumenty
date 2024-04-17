@@ -3,7 +3,14 @@ from tkinter import ttk
 
 
 class DiarySelectUI:
+    """
+    Třída DiarySelectUI reprezentuje uživatelské rozhraní pro vyhledávání deníkových záznamů.
+    """
+
     def __init__(self, root, diary):
+        """
+        Inicializuje novou instanci třídy DiarySelectUI.
+        """
         self.root = root
         self.diary = diary
         self.root.title("Vyhledávání")
@@ -39,6 +46,9 @@ class DiarySelectUI:
             root.rowconfigure(i, weight=1)
 
     def search(self):
+        """
+        Provede vyhledávání deníkových záznamů podle zadaných kritérií.
+        """
         search_by = self.search_var.get()
         search_term = self.entry_search.get()
         self.result_tree.delete(*self.result_tree.get_children())
@@ -48,7 +58,7 @@ class DiarySelectUI:
         elif search_by == "Autor":
             results = self.diary.select_from_diary_by_author(search_term)
         elif search_by == "Datum":
-            results = self.diary.select_from_diary_date(search_term)
+            results = self.diary.select_from_diary_by_date(search_term)
         elif search_by == "Obsah":
             results = self.diary.select_from_diary_by_content(search_term)
 
@@ -56,4 +66,7 @@ class DiarySelectUI:
             self.result_tree.insert("", "end", values=result[1:])
 
     def back(self):
+        """
+        Zavře okno pro vyhledávání deníkových záznamů.
+        """
         self.root.destroy()

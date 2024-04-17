@@ -3,7 +3,16 @@ from tkinter import messagebox
 
 
 class ChronicleInsertUI:
+    """
+    Třída pro vytvoření uživatelského rozhraní pro přidání nové kroniky.
+    """
     def __init__(self, root, chronicle):
+        """
+        Inicializuje uživatelské rozhraní pro přidání nové kroniky.
+
+        :param root: Hlavní okno aplikace.
+        :param chronicle: Instance třídy Chronicle pro manipulaci s kronikami v databázi.
+        """
         self.chronicle = chronicle
         self.root = root
         self.root.title("Přidat kroniku")
@@ -44,6 +53,9 @@ class ChronicleInsertUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """
+        Odešle požadavek na vložení nové kroniky do databáze.
+        """
         title = self.entry_title.get()
         publication_date = self.entry_publication_date.get()
         genre = self.entry_genre.get()
@@ -55,4 +67,7 @@ class ChronicleInsertUI:
         messagebox.showinfo("Úspěch", "Úspěšně přidáno.")
 
     def back(self):
+        """
+        Zavře okno a vrátí se zpět.
+        """
         self.root.destroy()

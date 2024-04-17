@@ -3,7 +3,14 @@ from tkinter import messagebox
 
 
 class SpeechUpdateMenuUI:
+    """
+    Třída SpeechUpdateMenuUI poskytuje uživatelské rozhraní pro úpravu existujícího projevu.
+    """
+
     def __init__(self, root, speech, id):
+        """
+        Inicializuje novou instanci třídy SpeechUpdateMenuUI.
+        """
         self.speech = speech
         self.root = root
         self.id = id
@@ -40,6 +47,9 @@ class SpeechUpdateMenuUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Provede aktualizaci informací o projevu v databázi.
+        """
         title = self.entry_title.get()
         publication_date = self.entry_publication_date.get()
         content = self.entry_content.get()
@@ -64,4 +74,7 @@ class SpeechUpdateMenuUI:
         self.back()
 
     def back(self):
+        """
+        Ukončí práci s rozhraním a zavře okno.
+        """
         self.root.destroy()

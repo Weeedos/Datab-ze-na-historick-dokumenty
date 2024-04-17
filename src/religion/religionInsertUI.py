@@ -3,7 +3,14 @@ from tkinter import messagebox
 
 
 class ReligionInsertUI:
+    """
+    Třída ReligionInsertUI poskytuje uživatelské rozhraní pro přidání nového náboženského textu do databáze.
+    """
+
     def __init__(self, root, religion):
+        """
+        Inicializuje novou instanci třídy ReligionInsertUI.
+        """
         self.religion = religion
         self.root = root
         self.root.title("Přidat náboženský text")
@@ -44,6 +51,9 @@ class ReligionInsertUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """
+        Vloží nový náboženský text do databáze na základě zadaných informací.
+        """
         title = self.entry_title.get()
         publication_date = self.entry_publication_date.get()
         genre = self.entry_description.get()
@@ -55,4 +65,7 @@ class ReligionInsertUI:
         messagebox.showinfo("Úspěch", "Úspěšně přidáno.")
 
     def back(self):
+        """
+        Zavře aktuální okno.
+        """
         self.root.destroy()

@@ -4,7 +4,14 @@ from src.travel_diaries.diaryUpdateMenuUI import DiaryUpdateMenuUI
 
 
 class DiaryUpdateUI:
+    """
+    Třída DiaryUpdateUI reprezentuje uživatelské rozhraní pro výběr a úpravu existujícího deníkového záznamu.
+    """
+
     def __init__(self, root, diary):
+        """
+        Inicializuje novou instanci třídy DiaryUpdateUI.
+        """
         self.root = root
         self.diary = diary
         self.root.title("Úprava")
@@ -32,9 +39,6 @@ class DiaryUpdateUI:
         self.button_back = tkinter.Button(self.root, text="Zpět", command=self.back)
         self.button_back.grid(row=2, column=0, columnspan=4, padx=10, pady=10, sticky='we')
 
-        self.button_back = tkinter.Button(self.root, text="Zpět", command=self.back)
-        self.button_back.grid(row=2, column=0, columnspan=4, padx=10, pady=10, sticky='we')
-
         self.refresh()
 
         root.columnconfigure(1, weight=1)
@@ -42,22 +46,31 @@ class DiaryUpdateUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Zobrazí uživatelské rozhraní pro úpravu vybraného deníkového záznamu.
+        """
         id = self.entry_id.get()
         select_id = self.diary.select_from_diary_by_id(id)
 
         if not select_id:
-            messagebox.showerror("Chyba", "Záznam se zadaným ID neexitsuje.")
-            raise Exception("Záznam se zadaným ID neexitsuje.")
+            messagebox.showerror("Chyba", "Záznam se zadaným ID neexistuje.")
+            raise Exception("Záznam se zadaným ID neexistuje.")
 
         update_id_root = tkinter.Tk()
         DiaryUpdateMenuUI(update_id_root, self.diary, id)
         update_id_root.mainloop()
 
     def refresh(self):
+        """
+        Obnoví seznam deníkových záznamů v uživatelském rozhraní.
+        """
         self.result_tree.delete(*self.result_tree.get_children())
 
         for result in self.diary.select_all():
             self.result_tree.insert("", "end", values=result)
 
     def back(self):
+        """
+        Zavře okno pro úpravu deníkového záznamu.
+        """
         self.root.destroy()

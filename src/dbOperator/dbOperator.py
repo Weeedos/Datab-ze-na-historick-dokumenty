@@ -2,24 +2,23 @@ import mysql.connector
 import configparser
 import re
 
-from src.log_editor.log_editor import Log_editor
-
+from src.log_editor.logeditor import LogEditor
 
 class DatabaseOperator:
     """
-        A class for handling interactions with a MySQL database, including connecting, inserting, updating, and querying data.
+    Třída pro manipulaci s MySQL databází, včetně navazování spojení, vkládání, aktualizaci a dotazy dat.
     """
     def __init__(self):
         """
-            Initialize the DatabaseOperator class with default values for connection attributes.
+        Inicializuje třídu DatabaseOperator s výchozími hodnotami atributů spojení.
         """
-        self.log_editor = Log_editor()
+        self.log_editor = LogEditor()
         self.connection = None
         self.cursor = None
 
     def connect(self):
         """
-            Establish a connection to the MySQL database using the configuration specified in the 'config.ini' file.
+        Naváže spojení s databází MySQL pomocí konfigurace specifikované v souboru 'config.ini'.
         """
         if self.connection is None:
             config = configparser.ConfigParser()
@@ -31,7 +30,7 @@ class DatabaseOperator:
             database = config["connection"]["database"].strip()
 
             if not isinstance(user, str) or not isinstance(password, str) or not isinstance(database, str):
-                raise ValueError("User, password, and database must be strings.")
+                raise ValueError("Uživatel, heslo a název databáze musí být řetězce.")
 
             self.connection = mysql.connector.connect(
                 host=host,
@@ -46,7 +45,7 @@ class DatabaseOperator:
 
     def disconnect(self):
         """
-            Close the database connection if it is open.
+        Uzavře spojení s databází, pokud je otevřené.
         """
         if self.connection is not None:
             self.connection.close()
@@ -54,7 +53,19 @@ class DatabaseOperator:
         self.log_editor.log_debug("Úspěšné odpojení do databáze.")
 
     def get_connection(self):
+        """
+        Vrátí objekt připojení k databázi.
+
+        :return:
+            connection: Připojení do databáze
+        """
         return self.connection
 
     def get_cursor(self):
+        """
+        Vrátí databázový kurzor.
+
+        :return:
+            cursor: Databázový kurzor
+        """
         return self.cursor

@@ -3,7 +3,13 @@ from tkinter import messagebox
 
 
 class LetterUpdateMenuUI:
+    """
+    Třída LetterUpdateMenuUI poskytuje uživatelské rozhraní pro úpravu existujícího dopisu.
+    """
     def __init__(self, root, letter, id):
+        """
+        Inicializuje uživatelské rozhraní pro úpravu dopisu.
+        """
         self.letter = letter
         self.root = root
         self.id = id
@@ -40,6 +46,9 @@ class LetterUpdateMenuUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Aktualizuje údaje dopisu na základě zadaných informací.
+        """
         sender = self.entry_sender.get()
         sending_date = self.entry_sending_date.get()
         content = self.entry_content.get()
@@ -64,4 +73,7 @@ class LetterUpdateMenuUI:
         self.back()
 
     def back(self):
+        """
+        Zavře okno.
+        """
         self.root.destroy()

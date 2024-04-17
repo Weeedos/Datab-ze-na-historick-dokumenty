@@ -4,7 +4,13 @@ from src.book.bookUpdateMenuUI import BookUpdateMenuUI
 
 
 class BookUpdateUI:
+    """
+    Reprezentuje uživatelské rozhraní pro výběr knihy, která se má upravit, a zobrazení detailů této knihy.
+    """
     def __init__(self, root, book):
+        """
+        Inicializuje objekt rozhraní BookUpdateUI.
+        """
         self.root = root
         self.book = book
         self.root.title("Úprava")
@@ -41,22 +47,31 @@ class BookUpdateUI:
             root.rowconfigure(i, weight=1)
 
     def update(self):
+        """
+        Spustí aktualizaci informací o vybrané knize.
+        """
         id = self.entry_id.get()
         select_id = self.book.select_from_book_by_id(id)
 
         if not select_id:
-            messagebox.showerror("Chyba", "Záznam se zadaným ID neexitsuje.")
-            raise Exception("Záznam se zadaným ID neexitsuje.")
+            messagebox.showerror("Chyba", "Záznam se zadaným ID neexistuje.")
+            return
 
         book_update_id_root = tkinter.Tk()
         BookUpdateMenuUI(book_update_id_root, self.book, id)
         book_update_id_root.mainloop()
 
     def refresh(self):
+        """
+        Obnoví seznam knih v rozhraní.
+        """
         self.result_tree.delete(*self.result_tree.get_children())
 
         for result in self.book.select_all():
             self.result_tree.insert("", "end", values=result)
 
     def back(self):
+        """
+        Zavře okno úpravy knihy.
+        """
         self.root.destroy()

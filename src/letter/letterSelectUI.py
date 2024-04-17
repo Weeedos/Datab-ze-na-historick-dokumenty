@@ -3,7 +3,13 @@ from tkinter import ttk
 
 
 class LetterSelectUI:
+    """
+    Třída LetterSelectUI poskytuje uživatelské rozhraní pro vyhledávání dopisů v databázi.
+    """
     def __init__(self, root, letter):
+        """
+        Inicializuje uživatelské rozhraní pro vyhledávání dopisů.
+        """
         self.root = root
         self.letter = letter
         self.root.title("Vyhledávání")
@@ -39,6 +45,9 @@ class LetterSelectUI:
             root.rowconfigure(i, weight=1)
 
     def search(self):
+        """
+        Provede hledání dopisů podle zadaných kritérií.
+        """
         search_by = self.search_var.get()
         search_term = self.entry_search.get()
         self.result_tree.delete(*self.result_tree.get_children())
@@ -56,4 +65,7 @@ class LetterSelectUI:
             self.result_tree.insert("", "end", values=result[1:])
 
     def back(self):
+        """
+        Zavře okno.
+        """
         self.root.destroy()

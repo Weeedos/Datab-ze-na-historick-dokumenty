@@ -3,7 +3,14 @@ from tkinter import messagebox
 
 
 class SpeechInsertUI:
+    """
+    Třída SpeechInsertUI poskytuje uživatelské rozhraní pro přidání nového záznamu řeči.
+    """
+
     def __init__(self, root, speech):
+        """
+        Inicializuje novou instanci třídy SpeechInsertUI.
+        """
         self.speech = speech
         self.root = root
         self.root.title("Přidat dopis")
@@ -39,14 +46,14 @@ class SpeechInsertUI:
             root.rowconfigure(i, weight=1)
 
     def insert(self):
+        """Vloží nový záznam řeči do databáze."""
         title = self.entry_title.get()
         author = self.entry_author.get()
         publication_date = self.entry_publication_date.get()
         content = self.entry_content.get()
-
         self.speech.insert_into_speech(title, author, publication_date, content)
-
         messagebox.showinfo("Úspěch", "Úspěšně přidáno.")
 
     def back(self):
+        """Ukončí práci s rozhraním a zavře okno."""
         self.root.destroy()
