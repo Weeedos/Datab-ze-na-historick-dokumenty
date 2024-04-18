@@ -61,6 +61,9 @@ class LetterSelectUI:
         elif search_by == "Obsah":
             results = self.letter.select_from_letter_by_content(search_term)
 
+        if results is None:
+            return
+
         for result in results:
             self.result_tree.insert("", "end", values=result[1:])
 

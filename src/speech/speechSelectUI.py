@@ -62,6 +62,9 @@ class SpeechSelectUI:
         elif search_by == "Obsah":
             results = self.speech.select_from_speech_by_content(search_term)
 
+        if results is None:
+            return
+
         for result in results:
             self.result_tree.insert("", "end", values=result[1:])
 

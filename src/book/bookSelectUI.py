@@ -67,8 +67,11 @@ class BookSelectUI:
         elif search_by == "ISBN":
             results = self.book.select_from_book_by_isbn(search_term)
 
+        if results is None:
+            return
+
         for result in results:
-            self.result_tree.insert("", "end", values=result)
+            self.result_tree.insert("", "end", values=result[1:])
 
     def back(self):
         """

@@ -1,7 +1,6 @@
 import mysql.connector
 import configparser
-import re
-
+from src.configLoader.configLoader import ConfigLoader
 from src.log_editor.logeditor import LogEditor
 
 class DatabaseOperator:
@@ -13,6 +12,7 @@ class DatabaseOperator:
         Inicializuje třídu DatabaseOperator s výchozími hodnotami atributů spojení.
         """
         self.log_editor = LogEditor()
+        self.configLoader = ConfigLoader()
         self.connection = None
         self.cursor = None
 
@@ -21,16 +21,10 @@ class DatabaseOperator:
         Naváže spojení s databází MySQL pomocí konfigurace specifikované v souboru 'config.ini'.
         """
         if self.connection is None:
-            config = configparser.ConfigParser()
-            config.read("./cfg/config.ini")
-
-            host = config["connection"]["host"].strip()
-            user = config["connection"]["user"].strip()
-            password = config["connection"]["password"].strip()
-            database = config["connection"]["database"].strip()
-
-            if not isinstance(user, str) or not isinstance(password, str) or not isinstance(database, str):
-                raise ValueError("Uživatel, heslo a název databáze musí být řetězce.")
+            host = self.configLoader.getHost()
+            user = self.configLoader.getUser()
+            password = self.configLoader.getPassword()
+            database = self.configLoader.getDatabase()
 
             self.connection = mysql.connector.connect(
                 host=host,

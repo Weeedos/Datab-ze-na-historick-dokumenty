@@ -21,6 +21,7 @@ class LoginMenuUI:
         self.db_operator = db_operator
         self.user = user
         self.log_editor = log_editor
+        self.root.title("Přihlášení")
 
         # UI prvky pro přihlašovací formulář
         self.label_username = tkinter.Label(root, text="Uživatelské jméno:")

@@ -101,7 +101,25 @@ class Charter:
         self.cursor.execute(f"SELECT * FROM charter WHERE author = '{str_author}'")
         return self.cursor.fetchall()
 
-    # Metody pro vyhledávání podle dalších kritérií (period, country, issuance_date, id)
+    def select_from_charter_by_period(self, charter_period):
+        str_period = str(charter_period)
+        self.cursor.execute(f"SELECT * FROM charter WHERE period = '{str_period}'")
+        return self.cursor.fetchall()
+
+    def select_from_charter_by_country(self, charter_country):
+        str_country = str(charter_country)
+        self.cursor.execute(f"SELECT * FROM charter WHERE country = '{str_country}'")
+        return self.cursor.fetchall()
+
+    def select_from_charter_by_issuance_date(self, issuance_date):
+        date_regex = re.compile(r'\d{4}-\d{2}-\d{2}')
+
+        if not date_regex.match(issuance_date):
+            messagebox.showerror("Chyba", "Špatný formát data. Použijte formát RRRR-MM-DD.")
+        else:
+            str_issuance_date = str(issuance_date)
+            self.cursor.execute(f"SELECT * FROM charter WHERE issuance_date = '{str_issuance_date}'")
+            return self.cursor.fetchall()
 
     def import_from_csv(self, path_to_csv):
         """

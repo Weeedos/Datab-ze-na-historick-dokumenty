@@ -85,7 +85,39 @@ class Chronicle:
         self.cursor.execute(f"SELECT * FROM chronicle WHERE title = '{str_title}'")
         return self.cursor.fetchall()
 
-    # Další metody pro výběr podle autorů, žánrů, jazyků, data vydání, ID a všechny záznamy...
+    def select_from_chronicle_by_author(self, chronicle_author):
+        str_author = str(chronicle_author)
+        self.cursor.execute(f"SELECT * FROM chronicle WHERE author = '{str_author}'")
+        return self.cursor.fetchall()
+
+    def select_from_chronicle_by_genre(self, chronicle_genre):
+        str_genre = str(chronicle_genre)
+        self.cursor.execute(f"SELECT * FROM chronicle WHERE genre = '{str_genre}'")
+        return self.cursor.fetchall()
+
+    def select_from_chronicle_by_language(self, chronicle_language):
+        str_language = str(chronicle_language)
+        self.cursor.execute(f"SELECT * FROM chronicle WHERE language = '{str_language}'")
+        return self.cursor.fetchall()
+
+    def select_from_chronicle_by_publication_date(self, publication_date):
+        date_regex = re.compile(r'\d{4}-\d{2}-\d{2}')
+
+        if not date_regex.match(publication_date):
+            messagebox.showerror("Chyba", "Špatný formát data. Použijte formát RRRR-MM-DD.")
+        else:
+            str_publication_date = str(publication_date)
+            self.cursor.execute(f"SELECT * FROM chronicle WHERE publication_date = '{str_publication_date}'")
+            return self.cursor.fetchall()
+
+    def select_from_chronicle_by_id(self, id):
+        int_id = int(id)
+        self.cursor.execute(f"SELECT * FROM chronicle WHERE id = '{int_id}'")
+        return self.cursor.fetchall()
+
+    def select_all(self):
+        self.cursor.execute("SELECT * FROM chronicle")
+        return self.cursor.fetchall()
 
     def import_from_csv(self, path_to_csv):
         """

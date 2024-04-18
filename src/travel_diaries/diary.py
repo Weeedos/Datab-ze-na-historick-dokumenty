@@ -9,7 +9,6 @@ class Diary:
     """
     Třída Diary slouží k manipulaci s deníkovými záznamy uloženými v databázi.
     """
-
     def __init__(self, db_operator):
         """
         Inicializuje novou instanci třídy Diary.

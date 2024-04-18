@@ -53,6 +53,40 @@ class Letter:
 
         self.log_editor.log_debug("Záznam úspěšně odebrán z databáze.")
 
+    def select_from_letter_by_sender(self, sender):
+        str_sender = str(sender)
+        self.cursor.execute(f"SELECT * FROM letters WHERE sender = '{str_sender}'")
+        return self.cursor.fetchall()
+
+    def select_from_letter_by_recipient(self, recipient):
+        str_recipient = str(recipient)
+        self.cursor.execute(f"SELECT * FROM letters WHERE recipient = '{str_recipient}'")
+        return self.cursor.fetchall()
+
+    def select_from_letter_by_content(self, content):
+        str_content = str(content)
+        self.cursor.execute(f"SELECT * FROM letters WHERE content = '{str_content}'")
+        return self.cursor.fetchall()
+
+    def select_from_letter_by_sending_date(self, sending_date):
+        date_regex = re.compile(r'\d{4}-\d{2}-\d{2}')
+
+        if not date_regex.match(sending_date):
+            messagebox.showerror("Chyba", "Špatný formát data. Použijte formát RRRR-MM-DD.")
+        else:
+            str_sending_date = str(sending_date)
+            self.cursor.execute(f"SELECT * FROM letters WHERE sending_date = '{str_sending_date}'")
+            return self.cursor.fetchall()
+
+    def select_from_letter_by_id(self, id):
+        int_id = int(id)
+        self.cursor.execute(f"SELECT * FROM letters WHERE id = '{int_id}'")
+        return self.cursor.fetchall()
+
+    def select_all(self):
+        self.cursor.execute("SELECT * FROM letters")
+        return self.cursor.fetchall()
+
     def import_from_csv(self, path_to_csv):
         """
         Importuje data z CSV souboru do databáze.

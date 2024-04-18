@@ -18,7 +18,7 @@ class ChronicleSelectUI:
         self.label_search = tkinter.Label(self.root, text="Hledat podle:")
         self.label_search.grid(row=0, column=0, padx=10, pady=5, sticky='we')
 
-        self.search_options = ["Název", "Autor", "Datum vydání", "Žánr", "Jazyk", "ISBN"]
+        self.search_options = ["Název", "Autor", "Datum vydání", "Žánr", "Jazyk"]
         self.search_var = tkinter.StringVar(self.root)
         self.search_var.set(self.search_options[0])
         self.search_dropdown = ttk.Combobox(self.root, textvariable=self.search_var, values=self.search_options)
@@ -64,6 +64,9 @@ class ChronicleSelectUI:
             results = self.chronicle.select_from_chronicle_by_genre(search_term)
         elif search_by == "Jazyk":
             results = self.chronicle.select_from_chronicle_by_language(search_term)
+
+        if results is None:
+            return
 
         for result in results:
             self.result_tree.insert("", "end", values=result[1:])

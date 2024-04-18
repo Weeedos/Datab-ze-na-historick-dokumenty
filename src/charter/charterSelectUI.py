@@ -65,6 +65,9 @@ class CharterSelectUI:
         elif search_by == "Datum vydání":
             results = self.charter.select_from_charter_by_issuance_date(search_term)
 
+        if results is None:
+            return
+
         for result in results:
             self.result_tree.insert("", "end", values=result[1:])
 

@@ -137,6 +137,11 @@ class Book:
             self.cursor.execute(f"SELECT * FROM book WHERE publication_date = '{str_publication_date}'")
             return self.cursor.fetchall()
 
+    def select_from_book_by_isbn(self, isbn):
+        int_isbn = int(isbn)
+        self.cursor.execute(f"SELECT * FROM book WHERE isbn = '{int_isbn}'")
+        return self.cursor.fetchall()
+
     def select_from_book_by_id(self, id):
         """
         Vybere záznam knihy z databáze podle ID.

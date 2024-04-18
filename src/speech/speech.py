@@ -87,6 +87,36 @@ class Speech:
         self.cursor.execute(f"SELECT * FROM speeches_and_manifestos WHERE title = '{str_title}'")
         return self.cursor.fetchall()
 
+    def select_from_speech_by_author(self, author):
+        str_author = str(author)
+        self.cursor.execute(f"SELECT * FROM speeches_and_manifestos WHERE author = '{str_author}'")
+        return self.cursor.fetchall()
+
+    def select_from_speech_by_content(self, content):
+        str_content = str(content)
+        self.cursor.execute(f"SELECT * FROM speeches_and_manifestos WHERE content = '{str_content}'")
+        return self.cursor.fetchall()
+
+    def select_from_speech_by_publication_date(self, publication_date):
+        date_regex = re.compile(r'\d{4}-\d{2}-\d{2}')
+
+        if not date_regex.match(publication_date):
+            messagebox.showerror("Chyba", "Špatný formát data. Použijte formát RRRR-MM-DD.")
+        else:
+            str_publication_date = str(publication_date)
+            self.cursor.execute(
+                f"SELECT * FROM speeches_and_manifestos WHERE publication_date = '{str_publication_date}'")
+            return self.cursor.fetchall()
+
+    def select_from_speech_by_id(self, id):
+        int_id = int(id)
+        self.cursor.execute(f"SELECT * FROM speeches_and_manifestos WHERE id = '{int_id}'")
+        return self.cursor.fetchall()
+
+    def select_all(self):
+        self.cursor.execute("SELECT * FROM speeches_and_manifestos")
+        return self.cursor.fetchall()
+
     def import_from_csv(self, path_to_csv):
         """
         Importuje data z CSV souboru do databáze.

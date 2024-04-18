@@ -62,6 +62,9 @@ class DiarySelectUI:
         elif search_by == "Obsah":
             results = self.diary.select_from_diary_by_content(search_term)
 
+        if results is None:
+            return
+
         for result in results:
             self.result_tree.insert("", "end", values=result[1:])
 
